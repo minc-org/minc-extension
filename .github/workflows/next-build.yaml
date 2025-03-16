@@ -1,0 +1,101 @@
+#
+# Copyright (C) 2025 Red Hat, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+name: next build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+jobs:
+
+  builder-image:
+    name: Build and publish builder OCI images only if pnpm-lock.yaml or package.json changes
+    if: contains(github.event.head_commit.modified, 'package.json') || contains(github.event.head_commit.modified, 'pnpm-lock.yaml')
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+         fetch-depth: 0
+
+      - name: build builder image
+        id: builder-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: minc-extension-builder
+          tags: next ${{ github.sha }}
+          containerfiles: |
+            build/Containerfile.builder
+          context: .
+          oci: true
+
+      - name: Login to ghcr.io
+        uses: redhat-actions/podman-login@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: publish builder to ghcr.io
+        id: push-to-ghcr
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.builder-image.outputs.image }}
+          tags: ${{ steps.builder-image.outputs.tags }}
+          registry: ghcr.io/${{ github.repository_owner }}
+
+  extension-image:
+    name: Build and publish extension OCI image
+    runs-on: ubuntu-24.04
+    needs: [builder-image]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+         fetch-depth: 0
+
+      - name: build extension image
+        id: extension-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: minc-extension
+          tags: next ${{ github.sha }}
+          containerfiles: |
+            build/Containerfile
+          context: .
+          oci: true
+
+      - name: Login to ghcr.io
+        uses: redhat-actions/podman-login@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: publish extension to ghcr.io
+        id: push-to-ghcr
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.extension-image.outputs.image }}
+          tags: ${{ steps.extension-image.outputs.tags }}
+          registry: ghcr.io/${{ github.repository_owner }}
