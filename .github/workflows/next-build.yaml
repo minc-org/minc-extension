@@ -15,7 +15,11 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-name: next build
+name: build and push builder image
+
+permissions:
+  contents: read        # Allows reading the repository content (checkout)
+  packages: write       # Allows pushing images to GitHub Container Registry (GHCR)
 
 on:
   workflow_dispatch:
@@ -27,10 +31,29 @@ env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
 jobs:
+  check-builder-changes:
+    runs-on: ubuntu-24.04
+    outputs:
+      builder_required: ${{ steps.check.outputs.builder_required }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # Ensure we have at least one previous commit for diff check
+
+      - name: Check for builder-related changes
+        id: check
+        run: |
+          if git diff --name-only HEAD^ HEAD | grep -E '^(package.json|pnpm-lock.yaml|.github/workflows/next-build.yaml)$'; then
+            echo "builder_required=true" >> $GITHUB_OUTPUT
+          else
+            echo "builder_required=false" >> $GITHUB_OUTPUT
+          fi
 
   builder-image:
+    needs: check-builder-changes
+    if: needs.check-builder-changes.outputs.builder_required == 'true'
     name: Build and publish builder OCI images only if pnpm-lock.yaml or package.json changes
-    if: contains(github.event.head_commit.modified, 'package.json') || contains(github.event.head_commit.modified, 'pnpm-lock.yaml')
     runs-on: ubuntu-24.04
 
     steps:
@@ -67,7 +90,7 @@ jobs:
   extension-image:
     name: Build and publish extension OCI image
     runs-on: ubuntu-24.04
-    needs: [builder-image]
+    needs: builder-image
 
     steps:
       - uses: actions/checkout@v4
