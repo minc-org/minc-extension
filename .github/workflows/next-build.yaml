@@ -86,14 +86,14 @@ jobs:
         with:
           image: ${{ steps.builder-image.outputs.image }}
           tags: ${{ steps.builder-image.outputs.tags }}
-          registry: ghcr.io
+          registry: ghcr.io/${{ github.repository_owner }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
         with:
-          subject-name: ghcr.io/minc-extension-builder
+          subject-name: ghcr.io/${{ github.repository_owner }}/minc-extension-builder
           subject-digest: ${{ steps.push-to-ghcr.outputs.digest }}
           push-to-registry: true
 
@@ -120,7 +120,7 @@ jobs:
         with:
           image: minc-extension
           tags: next ${{ github.sha }}
-          platforms: linux/amd64, linux/arm64
+          archs: amd64, arm64
           containerfiles: |
             build/Containerfile
           context: .
@@ -132,13 +132,13 @@ jobs:
         with:
           image: ${{ steps.extension-image.outputs.image }}
           tags: ${{ steps.extension-image.outputs.tags }}
-          registry: ghcr.io
+          registry: ghcr.io/${{ github.repository_owner }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
         with:
-          subject-name: ghcr.io/minc-extension
+          subject-name: ghcr.io/${{ github.repository_owner }}/minc-extension
           subject-digest: ${{ steps.push-to-ghcr.outputs.digest }}
           push-to-registry: true
