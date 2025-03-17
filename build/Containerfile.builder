@@ -25,5 +25,5 @@ RUN mkdir -p /opt/app-root/extension-source
 COPY package.json /opt/app-root/extension-source/
 COPY pnpm-lock.yaml /opt/app-root/extension-source/
 
-RUN npm install --global pnpm@10
-RUN pnpm --frozen-lockfile install
+RUN npm install --global pnpm@10 && \
+    pnpm --frozen-lockfile install

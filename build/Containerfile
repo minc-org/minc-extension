@@ -28,15 +28,15 @@ COPY src /opt/app-root/extension-source/src
 COPY types /opt/app-root/extension-source/types
 
 # refresh dependencies (if needed)
-RUN pnpm --frozen-lockfile install
-# build the extension
-RUN pnpm build
+# and build the extension
+RUN pnpm --frozen-lockfile install && \
+    pnpm build
 
 # copy output of the build + required files
 RUN mkdir /opt/app-root/extension && \
       cp -r dist /opt/app-root/extension/ && \
       cp package.json /opt/app-root/extension/ && \
-      cp *.png /opt/app-root/extension/
+      cp ./*.png /opt/app-root/extension/
 
 COPY package.json /opt/app-root/extension/
 COPY LICENSE /opt/app-root/extension/
