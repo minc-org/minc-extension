@@ -66,6 +66,8 @@ jobs:
       - name: publish codecov report
         if: ${{ matrix.os=='ubuntu-22.04' }}
         uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Run build
         run: pnpm build
