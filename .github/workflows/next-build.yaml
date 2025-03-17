@@ -18,8 +18,10 @@
 name: build and push builder image
 
 permissions:
-  contents: read        # Allows reading the repository content (checkout)
-  packages: write       # Allows pushing images to GitHub Container Registry (GHCR)
+  contents: read
+  packages: write
+  attestations: write
+  id-token: write
 
 on:
   workflow_dispatch:
@@ -39,7 +41,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2  # Ensure we have at least one previous commit for diff check
+          fetch-depth: 2 # Ensure we have at least one previous commit for diff check
 
       - name: Check for builder-related changes
         id: check
@@ -59,7 +61,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-         fetch-depth: 0
+          fetch-depth: 0
 
       - name: Install qemu dependency
         run: |
@@ -88,6 +90,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ghcr.io/minc-extension-builder
+          subject-digest: ${{ steps.push-to-ghcr.outputs.digest }}
+          push-to-registry: true
+
+
   extension-image:
     name: Build and publish extension OCI image
     if: always()
@@ -97,7 +107,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-         fetch-depth: 0
+          fetch-depth: 0
 
       - name: Install qemu dependency
         run: |
@@ -125,3 +135,10 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ghcr.io/minc-extension
+          subject-digest: ${{ steps.push-to-ghcr.outputs.digest }}
+          push-to-registry: true
