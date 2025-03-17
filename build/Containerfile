@@ -20,6 +20,7 @@ FROM ghcr.io/minc-org/minc-extension-builder:next AS builder
 COPY * /opt/app-root/
 
 RUN pnpm --frozen-lockfile install
+RUN pnpm build
 
 COPY package.json /extension/
 COPY LICENSE /extension/
