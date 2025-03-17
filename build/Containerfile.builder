@@ -19,7 +19,7 @@ FROM registry.access.redhat.com/ubi9/nodejs-22-minimal:9.5-1741873206
 # change home directory to be at /opt/app-root
 ENV HOME=/opt/app-root
 
-# copy the application files to the /opt/app-root/extension directory
+# copy the application files to the /opt/app-root/extension-source directory
 WORKDIR /opt/app-root/extension-source
 RUN mkdir -p /opt/app-root/extension-source
 COPY package.json /opt/app-root/extension-source/
