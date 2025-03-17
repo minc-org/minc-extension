@@ -16,9 +16,14 @@
 # SPDX-License-Identifier: Apache-2.0
 
 FROM registry.access.redhat.com/ubi9/nodejs-22-minimal:9.5-1741873206
+# change home directory to be at /opt/app-root
+ENV HOME=/opt/app-root
 
-COPY package.json /opt/app-root/
-COPY pnpm-lock.yaml /opt/app-root/
+# copy the application files to the /opt/app-root/extension directory
+WORKDIR /opt/app-root/extension
+RUN mkdir -p /opt/app-root/extension
+COPY package.json /opt/app-root/extension/
+COPY pnpm-lock.yaml /opt/app-root/extension/
 
-RUN npm install --global pnpm@10 \
-    && pnpm --frozen-lockfile install
+RUN npm install --global pnpm@10
+RUN pnpm --frozen-lockfile install
