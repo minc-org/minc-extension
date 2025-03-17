@@ -20,10 +20,10 @@ FROM registry.access.redhat.com/ubi9/nodejs-22-minimal:9.5-1741873206
 ENV HOME=/opt/app-root
 
 # copy the application files to the /opt/app-root/extension directory
-WORKDIR /opt/app-root/extension
-RUN mkdir -p /opt/app-root/extension
-COPY package.json /opt/app-root/extension/
-COPY pnpm-lock.yaml /opt/app-root/extension/
+WORKDIR /opt/app-root/extension-source
+RUN mkdir -p /opt/app-root/extension-source
+COPY package.json /opt/app-root/extension-source/
+COPY pnpm-lock.yaml /opt/app-root/extension-source/
 
 RUN npm install --global pnpm@10
 RUN pnpm --frozen-lockfile install
