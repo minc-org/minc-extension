@@ -61,12 +61,18 @@ jobs:
         with:
          fetch-depth: 0
 
+      - name: Install qemu dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qemu-user-static
+
       - name: build builder image
         id: builder-image
         uses: redhat-actions/buildah-build@v2
         with:
           image: minc-extension-builder
           tags: next ${{ github.sha }}
+          platforms: linux/amd64, linux/arm64
           containerfiles: |
             build/Containerfile.builder
           context: .
@@ -98,12 +104,18 @@ jobs:
         with:
          fetch-depth: 0
 
+      - name: Install qemu dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qemu-user-static
+
       - name: build extension image
         id: extension-image
         uses: redhat-actions/buildah-build@v2
         with:
           image: minc-extension
           tags: next ${{ github.sha }}
+          platforms: linux/amd64, linux/arm64
           containerfiles: |
             build/Containerfile
           context: .
