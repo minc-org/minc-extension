@@ -24,10 +24,7 @@ let mincExtension: MincExtension | undefined;
 
 // Initialize the activation of the extension.
 export async function activate(extensionContext: ExtensionContext): Promise<void> {
-  if (!mincExtension) {
-    mincExtension = new MincExtension(extensionContext);
-  }
-
+  mincExtension ??= new MincExtension(extensionContext);
   await mincExtension.activate();
 }
 
