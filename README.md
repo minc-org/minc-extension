@@ -1,6 +1,14 @@
-# Minc extension
+# minc-extension
 
-This extension adds the support of MicroShift.
+![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue)
+![Build Status](https://github.com/minc-org/minc-extension/actions/workflows/next-build.yaml/badge.svg)
+[![codecov](https://codecov.io/gh/minc-org/minc-extension/graph/badge.svg?token=H3KHSQ5BHK)](https://codecov.io/gh/minc-org/minc-extension)
+![GitHub contributors](https://img.shields.io/github/contributors/minc-org/minc-extension)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/minc-org/minc-extension)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/minc-org/minc-extension)
+
+
+Podman Desktop extension to deploy MicroShift as a container.
 
 By using this extension, it is possible to create Kubernetes clusters
 running on top of the container engine.
