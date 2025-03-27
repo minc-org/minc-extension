@@ -15,6 +15,9 @@ running on top of the container engine.
 You can initialize a MicroShift cluster using the Resources section in Settings
 once the `minc` binary is installed on your machine.
 
+# Major release
+
+Install the custom extension `ghcr.io/minc-org/minc-extension:latest` to try the latest extension.
 
 # development version
 
