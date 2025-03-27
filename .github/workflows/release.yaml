@@ -62,6 +62,7 @@ jobs:
       - name: tag
         run: |
           git config --local user.name ${{ github.actor }}
+          git config --local user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
 
           # Add the new version in package.json file
           sed -i  "s#version\":\ \"\(.*\)\",#version\":\ \"${{ steps.TAG_UTIL.outputs.extVersion }}\",#g" package.json
