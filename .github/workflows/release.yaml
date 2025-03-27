@@ -22,6 +22,8 @@ permissions:
   packages: write
   attestations: write
   id-token: write
+  pull-requests: write
+  repository-projects: write
 
 on:
   workflow_dispatch:
