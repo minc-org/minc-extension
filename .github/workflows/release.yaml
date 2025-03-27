@@ -64,8 +64,6 @@ jobs:
           # Add the new version in package.json file
           sed -i  "s#version\":\ \"\(.*\)\",#version\":\ \"${{ steps.TAG_UTIL.outputs.extVersion }}\",#g" package.json
           git add package.json
-          git add packages/backend/package.json
-          git add packages/frontend/package.json
 
           # commit the changes
           git commit -m "chore: 🥁 tagging ${{ steps.TAG_UTIL.outputs.githubTag }} 🥳"
