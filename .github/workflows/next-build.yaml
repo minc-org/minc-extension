@@ -15,7 +15,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-name: build and push builder image
+name: build and publish next image
 
 permissions:
   contents: read
