@@ -12,8 +12,8 @@ importers:
         specifier: ^21.1.1
         version: 21.1.1
       inversify:
-        specifier: ^7.2.0
-        version: 7.2.0(reflect-metadata@0.2.2)
+        specifier: ^7.3.0
+        version: 7.3.0(reflect-metadata@0.2.2)
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
@@ -491,8 +491,8 @@ packages:
   '@inversifyjs/common@1.5.0':
     resolution: {integrity: sha512-Qj5BELk11AfI2rgZEAaLPmOftmQRLLmoCXgAjmaF0IngQN5vHomVT5ML7DZ3+CA5fgGcEVMcGbUDAun+Rz+oNg==}
 
-  '@inversifyjs/container@1.6.0':
-    resolution: {integrity: sha512-dntAu6TJRmTJl8+VXksBmvpfNtXQAEG6DkcdwOyv6xIr4ASdMdG2+14XKY5xUX8luk3CDCnK0j5XM8uxROfWuw==}
+  '@inversifyjs/container@1.7.0':
+    resolution: {integrity: sha512-M1CHnZ4r4N6zDleC2NNNjS0xMpipHSubEft8NDtzaOpmfGJ2nxgxbIES61xwhA0Y5kAV/jC2STx0pfPG7cyhAA==}
     peerDependencies:
       reflect-metadata: ~0.2.2
 
@@ -1746,8 +1746,8 @@ packages:
     resolution: {integrity: sha512-4gd7VpWNQNB4UKKCFFVcp1AVv+FMOgs9NKzjHKusc8jTMhd5eL1NqQqOpE0KzMds804/yHlglp3uxgluOqAPLw==}
     engines: {node: '>= 0.4'}
 
-  inversify@7.2.0:
-    resolution: {integrity: sha512-zPXKp7ybicPsrhlNZaJscZ9yeg0DZtnCGuNfMpMsso9Jx1tNepSS2CqPrrP8Pc75nH/5d/qB2rYKiv1BEI1gFQ==}
+  inversify@7.3.0:
+    resolution: {integrity: sha512-mrnIXv4mV1wAPEDPPRFlNLMuQyYnjQCxpbHR06zN+v4hke4Q4CIBXpySNId716GuQK6JL+6hwQkOXt9wbvZP4Q==}
     peerDependencies:
       reflect-metadata: ~0.2.2
 
@@ -3126,7 +3126,7 @@ snapshots:
 
   '@inversifyjs/common@1.5.0': {}
 
-  '@inversifyjs/container@1.6.0(reflect-metadata@0.2.2)':
+  '@inversifyjs/container@1.7.0(reflect-metadata@0.2.2)':
     dependencies:
       '@inversifyjs/common': 1.5.0
       '@inversifyjs/core': 5.1.0(reflect-metadata@0.2.2)
@@ -4564,10 +4564,10 @@ snapshots:
       hasown: 2.0.2
       side-channel: 1.1.0
 
-  inversify@7.2.0(reflect-metadata@0.2.2):
+  inversify@7.3.0(reflect-metadata@0.2.2):
     dependencies:
       '@inversifyjs/common': 1.5.0
-      '@inversifyjs/container': 1.6.0(reflect-metadata@0.2.2)
+      '@inversifyjs/container': 1.7.0(reflect-metadata@0.2.2)
       '@inversifyjs/core': 5.1.0(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
 
