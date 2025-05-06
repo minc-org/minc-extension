@@ -28,19 +28,41 @@ export class CreateClusterHelper {
 
   async create(
     mincCliPath: string,
-    _params?: { [key: string]: unknown },
+    params: { [key: string]: unknown },
     logger?: Logger,
     token?: CancellationToken,
   ): Promise<void> {
     const telemetryOptions: Record<string, unknown> = {};
 
+    // grab http host port
+    let httpHostPort = 80;
+    if (
+      params['microshift.cluster.creation.http.port'] &&
+      ['string', 'number'].includes(typeof params['microshift.cluster.creation.http.port'])
+    ) {
+      httpHostPort = Number(params['microshift.cluster.creation.http.port']);
+    }
+
+    // grab https host port
+    let httpsHostPort = 443;
+    if (
+      params['microshift.cluster.creation.https.port'] &&
+      ['string', 'number'].includes(typeof params['microshift.cluster.creation.https.port'])
+    ) {
+      httpsHostPort = Number(params['microshift.cluster.creation.https.port']);
+    }
+
     // now execute the command to create the cluster
     const startTime = performance.now();
     try {
-      await process.exec(mincCliPath, ['create'], {
-        logger,
-        token,
-      });
+      await process.exec(
+        mincCliPath,
+        ['create', '--http-port', String(httpHostPort), '--https-port', String(httpsHostPort)],
+        {
+          logger,
+          token,
+        },
+      );
     } catch (error: unknown) {
       telemetryOptions.error = error;
       let errorMessage = '';
