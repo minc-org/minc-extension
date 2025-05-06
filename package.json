@@ -18,7 +18,19 @@
         "microshift.cluster.form.description": {
           "type": "markdown",
           "scope": "KubernetesProviderConnectionFactory",
-          "markdownDescription": "For now, there are no options. A MicroShift cluster is created with the default ports:\n\n- **6443**\n- **9080**\n- **9443**"
+          "markdownDescription": "A MicroShift cluster is created using custom ports for routes."
+        },
+        "microshift.cluster.creation.http.port": {
+          "type": "number",
+          "default": 80,
+          "scope": "KubernetesProviderConnectionFactory",
+          "description": "HTTP Port for the routes"
+        },
+        "microshift.cluster.creation.https.port": {
+          "type": "number",
+          "default": 443,
+          "scope": "KubernetesProviderConnectionFactory",
+          "description": "HTTPS Port for the routes"
         }
       }
     }

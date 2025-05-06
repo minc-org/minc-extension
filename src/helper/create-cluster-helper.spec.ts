@@ -44,10 +44,33 @@ beforeEach(async () => {
 describe('create', () => {
   test('should execute the create command successfully', async () => {
     await createClusterHelper.create('/path/to/minc', {});
-    expect(podmanDesktopProcess.exec).toHaveBeenCalledWith('/path/to/minc', ['create'], {
-      logger: undefined,
-      token: undefined,
+    expect(podmanDesktopProcess.exec).toHaveBeenCalledWith(
+      '/path/to/minc',
+      ['create', '--http-port', '80', '--https-port', '443'],
+      {
+        logger: undefined,
+        token: undefined,
+      },
+    );
+    expect(telemetryLoggerMock.logUsage).toHaveBeenCalledWith(
+      'createCluster',
+      expect.objectContaining({ duration: expect.any(Number) }),
+    );
+  });
+
+  test('should execute the create command successfully with http/https port', async () => {
+    await createClusterHelper.create('/path/to/minc', {
+      'microshift.cluster.creation.http.port': 8080,
+      'microshift.cluster.creation.https.port': 8443,
     });
+    expect(podmanDesktopProcess.exec).toHaveBeenCalledWith(
+      '/path/to/minc',
+      ['create', '--http-port', '8080', '--https-port', '8443'],
+      {
+        logger: undefined,
+        token: undefined,
+      },
+    );
     expect(telemetryLoggerMock.logUsage).toHaveBeenCalledWith(
       'createCluster',
       expect.objectContaining({ duration: expect.any(Number) }),
