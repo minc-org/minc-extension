@@ -33,12 +33,18 @@ import {
   type ProviderConnectionStatus,
   type ProviderOptions,
   window,
+  type AuditRequestItems,
+  type AuditRecord,
+  env,
+  extensions,
+  AuditResult,
 } from '@podman-desktop/api';
+import type { PodmanExtensionApi } from '@podman-desktop/podman-extension-api';
 import { CreateClusterHelper } from '../helper/create-cluster-helper';
 import { ClusterSearchHelper } from '../helper/cluster-search-helper';
 
 import { CliToolManager } from './cli-tool-manager';
-import { MincCluster } from './minc-cluster';
+import type { MincCluster } from './minc-cluster';
 
 /**
  * Responsible to create and manage the registration of the provider
@@ -89,33 +95,110 @@ export class ProviderManager {
 
     this.extensionContext.subscriptions.push(mincProvider);
 
-    const disposable = mincProvider.setKubernetesProviderConnectionFactory({
-      create: async (params: { [key: string]: unknown }, logger?: Logger, token?: CancellationToken) => {
-        // if minc is not installed, let's ask the user to install it
-        let cliPath = this.cliToolManager.getPath();
-        if (!cliPath) {
-          const result = await window.showInformationMessage(
-            'minc is not installed, do you want to install the latest version?',
-            'Cancel',
-            'Confirm',
-          );
-          if (result !== 'Confirm') {
-            throw new Error('Unable to create minc cluster. No minc cli detected');
+    const disposable = mincProvider.setKubernetesProviderConnectionFactory(
+      {
+        create: async (params: { [key: string]: unknown }, logger?: Logger, token?: CancellationToken) => {
+          // if minc is not installed, let's ask the user to install it
+          let cliPath = this.cliToolManager.getPath();
+          if (!cliPath) {
+            const result = await window.showInformationMessage(
+              'minc is not installed, do you want to install the latest version?',
+              'Cancel',
+              'Confirm',
+            );
+            if (result !== 'Confirm') {
+              throw new Error('Unable to create minc cluster. No minc cli detected');
+            }
+            cliPath = await this.cliToolManager.installLatest();
           }
-          cliPath = await this.cliToolManager.installLatest();
-        }
 
-        if (!cliPath) {
-          throw new Error('minc cli is not installed');
-        }
+          if (!cliPath) {
+            throw new Error('minc cli is not installed');
+          }
 
-        return this.createCluster.create(cliPath, params, logger, token);
+          return this.createCluster.create(cliPath, params, logger, token);
+        },
+        creationDisplayName: 'Minc cluster',
       },
-      creationDisplayName: 'Minc cluster',
-    });
+      {
+        auditItems: async (_items: AuditRequestItems) => {
+          return this.auditRecords();
+        },
+      },
+    );
     this.extensionContext.subscriptions.push(disposable);
 
     await this.track(mincProvider);
+  }
+
+  // audit records method that will only check if rootful is available, else it will report a warning
+  protected async auditRecords(): Promise<AuditResult> {
+    const records: AuditRecord[] = [];
+
+    // check if we're in rootless mode or rootful mode
+    if (env.isLinux) {
+      // check if we're root user or not
+      const idCommandResult = await process.exec('id', ['-u']);
+      const uid = idCommandResult.stdout.trim();
+      if (uid !== '0') {
+        records.push({
+          type: 'error',
+          record: 'MINC requires a rootful podman. It is not possible to create a minc cluster in rootless mode.',
+        });
+      }
+      return { records };
+    }
+
+    // need to check if the podman machine is in rootless or rootful mode
+    const allConnections = provider.getContainerConnections();
+    const startedPodmanConnections = allConnections.filter(
+      connection => connection.connection.status() === 'started' && connection.connection.type === 'podman',
+    );
+
+    // if there is at least one started connection, check the first one
+    if (startedPodmanConnections.length > 0) {
+      const connection = startedPodmanConnections[0];
+
+      const podmanExtension = extensions.getExtension('podman-desktop.podman');
+      if (!podmanExtension) {
+        records.push({
+          type: 'warning',
+          record: 'Podman extension is not installed. Minc is only working with a podman container engine for now.',
+        });
+        return { records };
+      }
+
+      const podmanApi: PodmanExtensionApi = podmanExtension.exports;
+
+      try {
+        const infoResult = await podmanApi.exec(['info', '--format', 'json'], { connection });
+
+        const info = JSON.parse(infoResult.stdout);
+
+        const isRootless = info.host?.security?.rootless;
+
+        if (isRootless === undefined) {
+          records.push({
+            type: 'warning',
+            record: 'Unable to check if podman is using rootless or rootful with host.security.rootless',
+          });
+        } else if (isRootless === true) {
+          records.push({
+            type: 'error',
+            record: 'MINC requires a rootful Podman Machine. Please start a rootful Podman machine and try again.',
+          });
+        }
+      } catch (error: unknown) {
+        records.push({
+          type: 'warning',
+          record: `Unable to check if podman is using rootless or rootful: ${error}`,
+        });
+      }
+    }
+
+    return {
+      records: records,
+    };
   }
 
   async searchAndUpdateMincClusters(mincprovider: Provider): Promise<void> {

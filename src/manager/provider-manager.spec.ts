@@ -33,6 +33,14 @@ import {
   window,
   type ExtensionContext,
   type TelemetryLogger,
+  env,
+  type RunResult,
+  type AuditResult,
+  type ProviderConnectionStatus,
+  type ContainerProviderConnection,
+  type ProviderContainerConnection,
+  extensions,
+  type Extension,
 } from '@podman-desktop/api';
 import { ExtensionContextSymbol, TelemetryLoggerSymbol } from '../inject/symbol';
 import { ProviderManager } from './provider-manager';
@@ -57,6 +65,10 @@ class TestProviderManager extends ProviderManager {
     disposable: Disposable;
   }[] {
     return super.getRegisteredKubernetesConnections();
+  }
+
+  public async auditRecords(): Promise<AuditResult> {
+    return super.auditRecords();
   }
 }
 
@@ -122,6 +134,9 @@ test('should prompt user if minc CLI is missing', async () => {
 
   vi.mocked(window.showInformationMessage).mockResolvedValue('Confirm');
 
+  const spyAudit = vi.spyOn(providerManager, 'auditRecords');
+  spyAudit.mockResolvedValue({ records: [] });
+
   await providerManager.create();
 
   // now grab the connection factory
@@ -129,6 +144,13 @@ test('should prompt user if minc CLI is missing', async () => {
   if (connectionFactory && typeof connectionFactory.create === 'function') {
     await connectionFactory.create({});
   }
+
+  const auditRecords = vi.mocked(providerMock.setKubernetesProviderConnectionFactory).mock.calls[0][1];
+  if (auditRecords && typeof connectionFactory.create === 'function') {
+    await auditRecords.auditItems({});
+  }
+
+  expect(spyAudit).toHaveBeenCalled();
 
   expect(window.showInformationMessage).toHaveBeenCalledWith(
     'minc is not installed, do you want to install the latest version?',
@@ -331,5 +353,128 @@ describe('track', () => {
     onDidUnregisterContainerConnectionCallback?.(onDidRegisterContainerConnectionCallbackEvent);
 
     expect(spySearchAndUpdateMincClusters).toHaveBeenCalled();
+  });
+});
+
+describe('auditRecords', () => {
+  test('should return empty records on Linux if running as root', async () => {
+    vi.mocked(env).isLinux = true;
+    vi.mocked(podmanDesktopProcess.exec).mockResolvedValue({ stdout: '0' } as RunResult);
+
+    const result = await providerManager.auditRecords();
+    expect(result.records).toEqual([]);
+  });
+
+  test('should return warning on Linux if running as non-root', async () => {
+    vi.mocked(env).isLinux = true;
+    vi.mocked(podmanDesktopProcess.exec).mockResolvedValue({ stdout: '1000' } as RunResult);
+
+    const result = await providerManager.auditRecords();
+    expect(result.records).toEqual([
+      {
+        type: 'error',
+        record: 'MINC requires a rootful podman. It is not possible to create a minc cluster in rootless mode.',
+      },
+    ]);
+  });
+
+  test('should return warning if Podman extension is not installed', async () => {
+    vi.mocked(env).isLinux = false;
+    vi.mocked(env).isMac = true;
+    vi.mocked(provider.getContainerConnections).mockReturnValue([
+      {
+        connection: {
+          status: (): ProviderConnectionStatus => 'started',
+          type: 'podman',
+        } as unknown as ContainerProviderConnection,
+      } as unknown as ProviderContainerConnection,
+    ]);
+
+    vi.mocked(extensions.getExtension).mockReturnValue(undefined);
+
+    const result = await providerManager.auditRecords();
+    expect(result.records).toContainEqual({
+      type: 'warning',
+      record: 'Podman extension is not installed. Minc is only working with a podman container engine for now.',
+    });
+  });
+
+  test('should return error if Podman is rootless', async () => {
+    vi.mocked(env).isLinux = false;
+    vi.mocked(env).isMac = true;
+    vi.mocked(provider.getContainerConnections).mockReturnValue([
+      {
+        connection: {
+          status: (): ProviderConnectionStatus => 'started',
+          type: 'podman',
+        } as unknown as ContainerProviderConnection,
+      } as unknown as ProviderContainerConnection,
+    ]);
+
+    const mockExec = vi.fn().mockResolvedValue({
+      stdout: JSON.stringify({ host: { security: { rootless: true } } }),
+    });
+
+    vi.mocked(extensions.getExtension).mockReturnValue({
+      exports: { exec: mockExec },
+    } as unknown as Extension<unknown>);
+
+    const result = await providerManager.auditRecords();
+    expect(result.records).toContainEqual({
+      type: 'error',
+      record: 'MINC requires a rootful Podman Machine. Please start a rootful Podman machine and try again.',
+    });
+  });
+
+  test('should return warning if rootless info is undefined', async () => {
+    vi.mocked(env).isLinux = false;
+    vi.mocked(env).isMac = true;
+
+    vi.mocked(provider.getContainerConnections).mockReturnValue([
+      {
+        connection: {
+          status: () => 'started',
+          type: 'podman',
+        } as unknown as ContainerProviderConnection,
+      } as unknown as ProviderContainerConnection,
+    ]);
+
+    const mockExec = vi.fn().mockResolvedValue({
+      stdout: JSON.stringify({ host: { security: {} } }),
+    });
+
+    vi.mocked(extensions.getExtension).mockReturnValue({
+      exports: { exec: mockExec },
+    } as unknown as Extension<unknown>);
+
+    const result = await providerManager.auditRecords();
+    expect(result.records).toContainEqual({
+      type: 'warning',
+      record: 'Unable to check if podman is using rootless or rootful with host.security.rootless',
+    });
+  });
+
+  test('should return warning if Podman exec throws error', async () => {
+    vi.mocked(env).isLinux = false;
+    vi.mocked(env).isMac = true;
+
+    vi.mocked(provider.getContainerConnections).mockReturnValue([
+      {
+        connection: {
+          status: () => 'started',
+          type: 'podman',
+        } as unknown as ContainerProviderConnection,
+      } as unknown as ProviderContainerConnection,
+    ]);
+
+    const mockExec = vi.fn().mockRejectedValue(new Error('command failed'));
+
+    vi.mocked(extensions.getExtension).mockReturnValue({
+      exports: { exec: mockExec },
+    } as unknown as Extension<unknown>);
+
+    const result = await providerManager.auditRecords();
+    expect(result.records[0].type).toBe('warning');
+    expect(result.records[0].record).toContain('Unable to check if podman is using rootless or rootful');
   });
 });

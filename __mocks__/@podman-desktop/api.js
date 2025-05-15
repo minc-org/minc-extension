@@ -15,6 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  ***********************************************************************/
+import { extensions } from '@podman-desktop/api';
 import { vi } from 'vitest';
 
 /**
@@ -26,11 +27,15 @@ const plugin = {
   cli: {
     createCliTool: vi.fn(),
   },
+  extensions: {
+    getExtension: vi.fn(),
+  },
   provider: {
     createProvider: vi.fn(),
     onDidUpdateContainerConnection: vi.fn(),
     onDidRegisterContainerConnection: vi.fn(),
     onDidUnregisterContainerConnection: vi.fn(),
+    getContainerConnections: vi.fn(),
   },
   containerEngine: {
     onEvent: vi.fn(),
