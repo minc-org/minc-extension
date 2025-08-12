@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@octokit/rest": "^22.0.0",
-    "inversify": "^7.5.4"
+    "inversify": "^7.7.1"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
