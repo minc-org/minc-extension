@@ -20,11 +20,12 @@ import path from 'node:path';
 
 const excludeArray = [
   'tests/playwright/**',
+  'tests/resources/**',
   '**/builtin/**',
   '**/node_modules/**',
   '**/dist/**',
   '**/.{idea,git,cache,output,temp,cdix}/**',
-  '**/{.electron-builder,babel,changelog,docusaurus,jest,postcss,prettier,rollup,svelte,tailwind,vite,vitest*,webpack}.config.*',
+  '**/{.electron-builder,babel,changelog,docusaurus,jest,postcss,prettier,rollup,svelte,tailwind,vite,vitest*,webpack,playwright}.config.*',
 ];
 
 const config = {
@@ -34,6 +35,7 @@ const config = {
       provider: 'v8',
       reporter: ['lcov', 'text'],
       extension: '.ts',
+      exclude: [...excludeArray, 'playwright.config.ts', '**/*.d.ts'],
       thresholds: {
         lines: 100,
         functions: 100,
