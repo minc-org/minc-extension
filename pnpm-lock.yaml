@@ -12,8 +12,8 @@ importers:
         specifier: ^22.0.0
         version: 22.0.0
       inversify:
-        specifier: ^7.5.4
-        version: 7.5.4(reflect-metadata@0.2.2)
+        specifier: ^7.10.2
+        version: 7.10.2(reflect-metadata@0.2.2)
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
@@ -44,7 +44,7 @@ importers:
         version: 1.19.2
       '@podman-desktop/tests-playwright':
         specifier: next
-        version: 1.22.0-202509130306-946ef638278
+        version: 1.23.0-next.202509301423-214a0657ef6
       '@types/node':
         specifier: ^22.18.3
         version: 22.18.3
@@ -518,13 +518,13 @@ packages:
   '@inversifyjs/common@1.5.2':
     resolution: {integrity: sha512-WlzR9xGadABS9gtgZQ+luoZ8V6qm4Ii6RQfcfC9Ho2SOlE6ZuemFo7PKJvKI0ikm8cmKbU8hw5UK6E4qovH21w==}
 
-  '@inversifyjs/container@1.10.3':
-    resolution: {integrity: sha512-uuB6fNd3XeFBtsysJXqOt0G114M69EpQCfM2G2XnhNYUb/osnHNGeubl2sMHd6SO08HbtAD8yNQOkPpxKeQTEw==}
+  '@inversifyjs/container@1.13.2':
+    resolution: {integrity: sha512-nr02jAB4LSuLNB4d5oFb+yXclfwnQ27QSaAHiO/SMkEc02dLhFMEq+Sk41ycUjvKgbVo6HoxcETJGKBoTlZ+SA==}
     peerDependencies:
       reflect-metadata: ~0.2.2
 
-  '@inversifyjs/core@5.3.3':
-    resolution: {integrity: sha512-sx7msHtmgu/7gNPTMN9TzeBiE7y9y3dCEbLgtY8JOLP7okRPrrjTl7w6pd5RY00s/AovdDoE7BscNZVjqWIR0A==}
+  '@inversifyjs/core@9.0.1':
+    resolution: {integrity: sha512-glc/HLeHedD4Qy6XKEv065ABWfy23rXuENxy6+GbplQOJFL4rPN6H4XEPmThuXPhmR+a38VcQ5eL/tjcF7HXPQ==}
 
   '@inversifyjs/plugin@0.2.0':
     resolution: {integrity: sha512-R/JAdkTSD819pV1zi0HP54mWHyX+H2m8SxldXRgPQarS3ySV4KPyRdosWcfB8Se0JJZWZLHYiUNiS6JvMWSPjw==}
@@ -532,10 +532,10 @@ packages:
   '@inversifyjs/prototype-utils@0.1.2':
     resolution: {integrity: sha512-WZAEycwVd8zVCPCQ7GRzuQmjYF7X5zbjI9cGigDbBoTHJ8y5US9om00IAp0RYislO+fYkMzgcB2SnlIVIzyESA==}
 
-  '@inversifyjs/reflect-metadata-utils@1.2.0':
-    resolution: {integrity: sha512-EvXdBP+IjAZ3QKWFWGDzWLacyng9RMohtZ0c0EPUmvbaF4wgfwrE6n92ilt9aGwdbE5roGmDTmoRSmvavVOtIA==}
+  '@inversifyjs/reflect-metadata-utils@1.4.1':
+    resolution: {integrity: sha512-Cp77C4d2wLaHXiUB7iH6Cxb7i1lD/YDuTIHLTDzKINqGSz0DCSoL/Dg2wVkW/6Qx03r/yQMLJ+32Agl32N2X8g==}
     peerDependencies:
-      reflect-metadata: 0.2.2
+      reflect-metadata: ~0.2.2
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -650,8 +650,8 @@ packages:
   '@podman-desktop/podman-extension-api@1.19.2':
     resolution: {integrity: sha512-nxeRhLTmYEDPvBX0oSa2RA+89sdyDD/dQEcVTw2FksvDFessk6izhnQfzpzbtAC/Yygrucq8Uczer7EFQzaFHw==}
 
-  '@podman-desktop/tests-playwright@1.22.0-202509130306-946ef638278':
-    resolution: {integrity: sha512-4qMDSW+vsJ+Iah91gVGnVO3qpDjgFRRR34EVC7zabrxCejwTSdHfoZa81uwaJOJvQd/rpwCXfLmGYCa3i/04Vg==}
+  '@podman-desktop/tests-playwright@1.23.0-next.202509301423-214a0657ef6':
+    resolution: {integrity: sha512-p4Iuju9hpKnM8BEi6X7adzw6yL8O8NE96CvcmBK5N2Ih7EH1T+hrL0VagVnTJcTppkxru1PQ+VqiRXMF0jeVBQ==}
 
   '@rollup/rollup-android-arm-eabi@4.50.2':
     resolution: {integrity: sha512-uLN8NAiFVIRKX9ZQha8wy6UUs06UNSZ32xj6giK/rmMXAgKahwExvK6SsmgU5/brh4w/nSgj8e0k3c1HBQpa0A==}
@@ -1855,10 +1855,8 @@ packages:
     resolution: {integrity: sha512-4gd7VpWNQNB4UKKCFFVcp1AVv+FMOgs9NKzjHKusc8jTMhd5eL1NqQqOpE0KzMds804/yHlglp3uxgluOqAPLw==}
     engines: {node: '>= 0.4'}
 
-  inversify@7.5.4:
-    resolution: {integrity: sha512-4UqlM8ALDzxsqQpK9ExQJAgnJoYhGJ88sr5v0ukwjpwIsE/ZKl9PyRtm9sWmViaHA4n2SergxC5sL3eeW+EWLQ==}
-    peerDependencies:
-      reflect-metadata: ~0.2.2
+  inversify@7.10.2:
+    resolution: {integrity: sha512-BdR5jPo2lm8PlIEiDvEyEciLeLxabnJ6bNV7jv2Ijq6uNxuIxhApKmk360boKbSdRL9SOVMLK/O97S1EzNw+WA==}
 
   is-array-buffer@3.0.5:
     resolution: {integrity: sha512-DDfANUiiG2wC1qawP66qlTugJeL5HyzMpfr8lLK+jMQirGzNod0B12cFB/9q838Ru27sBwfw78/rdoU7RERz6A==}
@@ -3243,19 +3241,19 @@ snapshots:
 
   '@inversifyjs/common@1.5.2': {}
 
-  '@inversifyjs/container@1.10.3(reflect-metadata@0.2.2)':
+  '@inversifyjs/container@1.13.2(reflect-metadata@0.2.2)':
     dependencies:
       '@inversifyjs/common': 1.5.2
-      '@inversifyjs/core': 5.3.3(reflect-metadata@0.2.2)
+      '@inversifyjs/core': 9.0.1(reflect-metadata@0.2.2)
       '@inversifyjs/plugin': 0.2.0
-      '@inversifyjs/reflect-metadata-utils': 1.2.0(reflect-metadata@0.2.2)
+      '@inversifyjs/reflect-metadata-utils': 1.4.1(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
 
-  '@inversifyjs/core@5.3.3(reflect-metadata@0.2.2)':
+  '@inversifyjs/core@9.0.1(reflect-metadata@0.2.2)':
     dependencies:
       '@inversifyjs/common': 1.5.2
       '@inversifyjs/prototype-utils': 0.1.2
-      '@inversifyjs/reflect-metadata-utils': 1.2.0(reflect-metadata@0.2.2)
+      '@inversifyjs/reflect-metadata-utils': 1.4.1(reflect-metadata@0.2.2)
     transitivePeerDependencies:
       - reflect-metadata
 
@@ -3265,7 +3263,7 @@ snapshots:
     dependencies:
       '@inversifyjs/common': 1.5.2
 
-  '@inversifyjs/reflect-metadata-utils@1.2.0(reflect-metadata@0.2.2)':
+  '@inversifyjs/reflect-metadata-utils@1.4.1(reflect-metadata@0.2.2)':
     dependencies:
       reflect-metadata: 0.2.2
 
@@ -3396,7 +3394,7 @@ snapshots:
     dependencies:
       '@podman-desktop/api': 1.19.2
 
-  '@podman-desktop/tests-playwright@1.22.0-202509130306-946ef638278': {}
+  '@podman-desktop/tests-playwright@1.23.0-next.202509301423-214a0657ef6': {}
 
   '@rollup/rollup-android-arm-eabi@4.50.2':
     optional: true
@@ -4762,12 +4760,13 @@ snapshots:
       hasown: 2.0.2
       side-channel: 1.1.0
 
-  inversify@7.5.4(reflect-metadata@0.2.2):
+  inversify@7.10.2(reflect-metadata@0.2.2):
     dependencies:
       '@inversifyjs/common': 1.5.2
-      '@inversifyjs/container': 1.10.3(reflect-metadata@0.2.2)
-      '@inversifyjs/core': 5.3.3(reflect-metadata@0.2.2)
-      reflect-metadata: 0.2.2
+      '@inversifyjs/container': 1.13.2(reflect-metadata@0.2.2)
+      '@inversifyjs/core': 9.0.1(reflect-metadata@0.2.2)
+    transitivePeerDependencies:
+      - reflect-metadata
 
   is-array-buffer@3.0.5:
     dependencies:
