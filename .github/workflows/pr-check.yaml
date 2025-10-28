@@ -75,3 +75,106 @@ jobs:
       - name: Run build
         run: pnpm build
         timeout-minutes: 40
+
+  e2e-tests:
+    name: E2E Tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      SKIP_INSTALLATION: true
+    steps:
+      - uses: actions/checkout@v5
+        with: 
+          path: minc-extension
+
+      # Checkout podman desktop
+      - uses: actions/checkout@v5
+        with:
+          repository: podman-desktop/podman-desktop
+          ref: main
+          path: podman-desktop
+
+      - name: Download prerelease binaries
+        run: |
+          # Fetch the latest tag from the testing-prereleases repository
+          LATEST_TAG=$(curl -s https://api.github.com/repos/podman-desktop/testing-prereleases/tags | jq -r '.[0].name')
+          LATEST_VERSION=${LATEST_TAG:1} #removing the leading 'v' character
+          echo "Latest prerelease tag: $LATEST_TAG"
+          echo "Latest prerelease version: $LATEST_VERSION"
+          
+          # Construct the download URL for the tarball
+          DOWNLOAD_URL="https://github.com/podman-desktop/testing-prereleases/releases/download/${LATEST_TAG}/podman-desktop-${LATEST_VERSION}.tar.gz"
+          echo "Downloading from: $DOWNLOAD_URL"
+          
+          # Download the tarball
+          curl -L -o podman-desktop-prerelease.tar.gz "$DOWNLOAD_URL"
+          
+          # Extract tarball (it already contains a folder)
+          tar -xzf podman-desktop-prerelease.tar.gz
+          
+          # Rename the extracted folder to podman-desktop-prerelease
+          mv podman-desktop-${LATEST_VERSION} podman-desktop-prerelease
+          
+          # Make the podman-desktop binary executable
+          chmod +x podman-desktop-prerelease/podman-desktop
+          
+          # Set environment variable for subsequent steps
+          PODMAN_DESKTOP_BINARY="${GITHUB_WORKSPACE}/podman-desktop-prerelease/podman-desktop"
+          echo "PODMAN_DESKTOP_BINARY=${PODMAN_DESKTOP_BINARY}" >> $GITHUB_ENV
+          echo "Podman Desktop binary path: ${PODMAN_DESKTOP_BINARY}"
+          
+          # Clean up tarball
+          rm podman-desktop-prerelease.tar.gz
+          
+          echo "Extracted to: podman-desktop-prerelease"
+          ls -la podman-desktop-prerelease
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+          package_json_file: ./podman-desktop/package.json
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      
+        # on windows, wsl kernel update before this
+      - name: Update Podman
+        uses: redhat-actions/podman-install@main
+
+      - name: Install dbus-x11 package
+        run: sudo apt-get install dbus-x11
+
+      - name: Revert unprivileged user namespace restrictions in Ubuntu 24.04
+        run: |
+          # allow unprivileged user namespace
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
+      - name: Ensure getting current HEAD version of the test framework
+        working-directory: ./minc-extension
+        run: |
+          pnpm add -D @podman-desktop/tests-playwright@next
+      
+      - name: Build MINC extension from container file
+        working-directory: ./minc-extension
+        run: |
+          podman build -f build/Containerfile -t local_minc_image ./
+          CONTAINER_ID=$(podman create localhost/local_minc_image --entrypoint "")
+          podman export $CONTAINER_ID > /tmp/local_minc_image.tar
+          mkdir -p tests/playwright/output/minc-tests-pd/plugins
+          tar -xf /tmp/local_minc_image.tar -C tests/playwright/output/minc-tests-pd/plugins/
+          
+      - name: Run All E2E tests
+        working-directory: ./minc-extension
+        run: |
+          echo "PODMAN_DESKTOP_BINARY=${PODMAN_DESKTOP_BINARY}"
+          export $(dbus-launch)
+          export XDG_SESSION_TYPE=x11
+          pnpm test:e2e
+
+      - uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: e2e-tests
+          path: ./**/tests/**/output/
