@@ -23,6 +23,7 @@ import {
   test,
   ResourceConnectionCardPage,
   ExtensionState,
+  RunnerOptions,
 } from '@podman-desktop/tests-playwright';
 
 import { MincExtensionPage } from './model/pages/minc-extension-page';
@@ -35,6 +36,10 @@ const extensionLabelMinc = 'minc-org.minc'; //region card
 const extensionLabelNameMinc = 'minc'; //details button
 const extensionLabelResourcesMinc = 'microshift'; //resource connection card
 const skipInstallation = process.env.SKIP_INSTALLATION ?? false;
+
+test.use({
+  runnerOptions: new RunnerOptions({ customFolder: 'minc-tests-pd', autoUpdate: false, autoCheckUpdates: false }),
+});
 
 test.beforeAll(async ({ runner, page, welcomePage }) => {
   runner.setVideoAndTraceName('minc-extension-installation-e2e');
@@ -56,12 +61,13 @@ test.describe
         test('Go to extensions and check if extension is already installed', async ({ navigationBar }) => {
           const extensions = await navigationBar.openExtensions();
           if (await extensions.extensionIsInstalled(extensionLabelMinc)) {
+            console.log('Extension is already installed');
             extensionInstalled = true;
           }
         });
 
         // we want to skip removing of the extension when we are running tests from PR check
-        test('Uninstall previous version of crc extension', async ({ navigationBar }) => {
+        test('Uninstall previous version of minc extension', async ({ navigationBar }) => {
           test.skip(!extensionInstalled || !!skipInstallation);
           test.setTimeout(60_000);
           await removeExtension(navigationBar);
@@ -70,20 +76,23 @@ test.describe
         // we want to install extension from OCI image (usually using latest tag) after new code was added to the codebase
         // and extension was published already
         test('Extension can be installed using OCI image', async ({ navigationBar }) => {
-          test.skip(!!skipInstallation);
+          test.skip(extensionInstalled); //!!skipInstallation?
           test.setTimeout(200_000);
           const extensions = await navigationBar.openExtensions();
           await extensions.installExtensionFromOCIImage(imageName);
+          await extensionCard.card.scrollIntoViewIfNeeded();
           await playExpect(extensionCard.card).toBeVisible();
         });
 
         test('Extension (card) is installed, present and active', async ({ navigationBar }) => {
           const extensions = await navigationBar.openExtensions();
+          const mincExtensionCard = await extensions.getInstalledExtension(extensionLabelNameMinc, extensionLabelMinc);
+          await playExpect(mincExtensionCard.card).toBeVisible();
+          await mincExtensionCard.card.scrollIntoViewIfNeeded();
+          await playExpect(mincExtensionCard.status).toHaveText(ExtensionState.Active);
           await playExpect
             .poll(async () => await extensions.extensionIsInstalled(extensionLabelMinc), { timeout: 30_000 })
             .toBeTruthy();
-          const extensionCard = await extensions.getInstalledExtension(extensionLabelNameMinc, extensionLabelMinc);
-          await playExpect(extensionCard.status).toHaveText(ExtensionState.Active);
         });
 
         test('Extension details show correct status, no error', async ({ page, navigationBar }) => {
