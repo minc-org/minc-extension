@@ -45,11 +45,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2022, ubuntu-24.04] #, macos-14
+        os: [windows-2022, ubuntu-24.04, macos-15]
     runs-on: ${{ matrix.os }}
     steps:
       # Checkout minc extension
       - uses: actions/checkout@v5
+        name: Checkout Minc Extension (Workflow Dispatch)
         if: github.event_name == 'workflow_dispatch'
         with:
           repository: ${{ github.event.inputs.organization }}/${{ github.event.inputs.repositoryName }}
@@ -57,12 +58,14 @@ jobs:
           path: ${{ github.event.inputs.repositoryName }}
 
       - uses: actions/checkout@v5
+        name: Checkout Minc Extension (Push)
         if: github.event_name == 'push'
         with:
           path: minc-extension
 
       # Checkout podman desktop
       - uses: actions/checkout@v5
+        name: Checkout Podman Desktop
         with:
           repository: podman-desktop/podman-desktop
           ref: main
@@ -129,5 +132,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: ${{ matrix.os }}-e2e-tests
+          name: e2e-tests-${{ matrix.os }}
           path: ./**/tests/**/output/
