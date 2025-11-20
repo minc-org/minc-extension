@@ -40,7 +40,7 @@
     "test": "vitest run --coverage",
     "test:watch": "vitest watch --coverage",
     "test:e2e:setup": "playwright install chromium",
-    "test:e2e": "E2E_TESTS=true DEBUG=pw:channel:response,pw:channel:event npm run test:e2e:setup && xvfb-maybe --auto-servernum --server-args='-screen 0 1280x960x24' -- npx playwright test",
+    "test:e2e": "DEBUG=pw:channel:response,pw:channel:event npm run test:e2e:setup && xvfb-maybe --auto-servernum --server-args='-screen 0 1280x960x24' -- npx playwright test",
     "format:check": "biome format",
     "format:fix": "biome format --write",
     "lint:check": "eslint .",
