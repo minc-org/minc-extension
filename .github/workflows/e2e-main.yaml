@@ -49,7 +49,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       # Checkout minc extension
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         name: Checkout Minc Extension (Workflow Dispatch)
         if: github.event_name == 'workflow_dispatch'
         with:
@@ -57,14 +57,14 @@ jobs:
           ref: ${{ github.event.inputs.branch }}
           path: ${{ github.event.inputs.repositoryName }}
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         name: Checkout Minc Extension (Push)
         if: github.event_name == 'push'
         with:
           path: minc-extension
 
       # Checkout podman desktop
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         name: Checkout Podman Desktop
         with:
           repository: podman-desktop/podman-desktop
