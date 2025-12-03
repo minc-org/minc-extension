@@ -24,6 +24,7 @@ COPY *.js /opt/app-root/extension-source/
 COPY *.png /opt/app-root/extension-source/
 COPY .gitignore /opt/app-root/extension-source/
 COPY *.json /opt/app-root/extension-source/
+COPY pnpm-lock.yaml /opt/app-root/extension-source/
 COPY src /opt/app-root/extension-source/src
 COPY types /opt/app-root/extension-source/types
 
