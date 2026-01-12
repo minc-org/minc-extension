@@ -37,14 +37,14 @@ importers:
         specifier: ^1.54.2
         version: 1.54.2
       '@podman-desktop/api':
-        specifier: ^1.19.2
-        version: 1.19.2
+        specifier: ^1.22.1
+        version: 1.22.1
       '@podman-desktop/podman-extension-api':
         specifier: ^1.19.2
         version: 1.19.2
       '@podman-desktop/tests-playwright':
         specifier: next
-        version: 1.23.0-next.202510281143-7692003c660
+        version: 1.23.0-next.202511031343-e482c736dba
       '@types/node':
         specifier: ^22.18.13
         version: 22.18.13
@@ -656,11 +656,14 @@ packages:
   '@podman-desktop/api@1.19.2':
     resolution: {integrity: sha512-Xw1ahLK93V+FPnyOocFv/xC9+m/L5tanVLs15WkT72nPOqsVsMD6VGQ0vyeqCoWUd0gBgV3CG9s7MSMG85y07Q==}
 
+  '@podman-desktop/api@1.22.1':
+    resolution: {integrity: sha512-8o6jdbKaGqj80mDCjvS+wDJF2jVo1/RgV6eIFPf+Gi/2LF99nh69oDTSlBUndWNfc/MSphguXpbrBC6xYJhuZA==}
+
   '@podman-desktop/podman-extension-api@1.19.2':
     resolution: {integrity: sha512-nxeRhLTmYEDPvBX0oSa2RA+89sdyDD/dQEcVTw2FksvDFessk6izhnQfzpzbtAC/Yygrucq8Uczer7EFQzaFHw==}
 
-  '@podman-desktop/tests-playwright@1.23.0-next.202510281143-7692003c660':
-    resolution: {integrity: sha512-2hvMbqyWqlsFLVj36ASpdBnkZEL0rXlpZzSsVZCi6YKn1ygPVhQCFBXWJyEVklFIqKbEwh6tgPOBO+WWVTNnZw==}
+  '@podman-desktop/tests-playwright@1.23.0-next.202511031343-e482c736dba':
+    resolution: {integrity: sha512-oQwh2FdfL99g5VBAhJsiLNYH1aE6gcIczz5TrD4NdvsLjSPNTC4FnKjfTLbVPRg9ozd/M6ipmf4yUYPdTf1QOA==}
 
   '@rollup/rollup-android-arm-eabi@4.50.2':
     resolution: {integrity: sha512-uLN8NAiFVIRKX9ZQha8wy6UUs06UNSZ32xj6giK/rmMXAgKahwExvK6SsmgU5/brh4w/nSgj8e0k3c1HBQpa0A==}
@@ -3427,11 +3430,13 @@ snapshots:
 
   '@podman-desktop/api@1.19.2': {}
 
+  '@podman-desktop/api@1.22.1': {}
+
   '@podman-desktop/podman-extension-api@1.19.2':
     dependencies:
       '@podman-desktop/api': 1.19.2
 
-  '@podman-desktop/tests-playwright@1.23.0-next.202510281143-7692003c660': {}
+  '@podman-desktop/tests-playwright@1.23.0-next.202511031343-e482c736dba': {}
 
   '@rollup/rollup-android-arm-eabi@4.50.2':
     optional: true
