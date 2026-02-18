@@ -137,8 +137,8 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 22
-      
+          node-version: 24
+
         # on windows, wsl kernel update before this
       - name: Update Podman
         uses: redhat-actions/podman-install@main
