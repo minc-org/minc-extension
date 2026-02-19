@@ -103,7 +103,7 @@ jobs:
           echo "Latest prerelease version: $LATEST_VERSION"
           
           # Construct the download URL for the tarball
-          DOWNLOAD_URL="https://github.com/podman-desktop/testing-prereleases/releases/download/${LATEST_TAG}/podman-desktop-${LATEST_VERSION}.tar.gz"
+          DOWNLOAD_URL="https://github.com/podman-desktop/testing-prereleases/releases/download/${LATEST_TAG}/podman-desktop-${LATEST_VERSION}-x64.tar.gz"
           echo "Downloading from: $DOWNLOAD_URL"
           
           # Download the tarball
@@ -113,8 +113,8 @@ jobs:
           tar -xzf podman-desktop-prerelease.tar.gz
           
           # Rename the extracted folder to podman-desktop-prerelease
-          mv podman-desktop-${LATEST_VERSION} podman-desktop-prerelease
-          
+          mv podman-desktop-${LATEST_VERSION}-x64 podman-desktop-prerelease
+
           # Make the podman-desktop binary executable
           chmod +x podman-desktop-prerelease/podman-desktop
           
