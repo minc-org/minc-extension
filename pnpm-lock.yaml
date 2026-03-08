@@ -34,8 +34,8 @@ importers:
         specifier: ^9.29.0
         version: 9.29.0
       '@playwright/test':
-        specifier: ^1.54.2
-        version: 1.54.2
+        specifier: ^1.58.2
+        version: 1.58.2
       '@podman-desktop/api':
         specifier: ^1.25.1
         version: 1.25.1
@@ -44,7 +44,7 @@ importers:
         version: 1.19.2
       '@podman-desktop/tests-playwright':
         specifier: next
-        version: 1.26.0-next.202602231518-77d74de
+        version: 1.26.0-next.202603061522-ec09a80
       '@types/node':
         specifier: ^22.18.13
         version: 22.18.13
@@ -648,8 +648,8 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@playwright/test@1.54.2':
-    resolution: {integrity: sha512-A+znathYxPf+72riFd1r1ovOLqsIIB0jKIoPjyK2kqEIe30/6jF6BC7QNluHuwUmsD2tv1XZVugN8GqfTMOxsA==}
+  '@playwright/test@1.58.2':
+    resolution: {integrity: sha512-akea+6bHYBBfA9uQqSYmlJXn61cTa+jbO87xVLCWbTqbWadRVmhxlXATaOjOgcBaWU4ePo0wB41KMFv3o35IXA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -662,8 +662,8 @@ packages:
   '@podman-desktop/podman-extension-api@1.19.2':
     resolution: {integrity: sha512-nxeRhLTmYEDPvBX0oSa2RA+89sdyDD/dQEcVTw2FksvDFessk6izhnQfzpzbtAC/Yygrucq8Uczer7EFQzaFHw==}
 
-  '@podman-desktop/tests-playwright@1.26.0-next.202602231518-77d74de':
-    resolution: {integrity: sha512-FX68WxfrVNH6qoQyld5Fx4wasVEmOcCmMs4g7tg3hfLYHiIjicgF6X4UrTUgUOf4uzGU8G4f9RLphosTw9lI+w==}
+  '@podman-desktop/tests-playwright@1.26.0-next.202603061522-ec09a80':
+    resolution: {integrity: sha512-uFs1WNS6bgOfRg4Syfdn+rZx6WCBhkDfyqMrDAi3AJGyxIbqev6kUKmsrzjq+LVuhXvuJS2XghI8lHblRIFKbw==}
 
   '@rollup/rollup-android-arm-eabi@4.50.2':
     resolution: {integrity: sha512-uLN8NAiFVIRKX9ZQha8wy6UUs06UNSZ32xj6giK/rmMXAgKahwExvK6SsmgU5/brh4w/nSgj8e0k3c1HBQpa0A==}
@@ -1773,6 +1773,7 @@ packages:
   git-raw-commits@4.0.0:
     resolution: {integrity: sha512-ICsMM1Wk8xSGMowkOmPrzo2Fgmfo4bMHLNX6ytHjajRJUqvHOw/TFapQ+QG75c3X/tTDDhOSRPGC52dDbNM8FQ==}
     engines: {node: '>=16'}
+    deprecated: This package is no longer maintained. For the JavaScript API, please use @conventional-changelog/git-client instead.
     hasBin: true
 
   glob-parent@5.1.2:
@@ -2358,13 +2359,13 @@ packages:
     engines: {node: '>=0.10'}
     hasBin: true
 
-  playwright-core@1.54.2:
-    resolution: {integrity: sha512-n5r4HFbMmWsB4twG7tJLDN9gmBUeSPcsBZiWSE4DnYz9mJMAFqr2ID7+eGC9kpEnxExJ1epttwR59LEWCk8mtA==}
+  playwright-core@1.58.2:
+    resolution: {integrity: sha512-yZkEtftgwS8CsfYo7nm0KE8jsvm6i/PTgVtB8DL726wNf6H2IMsDuxCpJj59KDaxCtSnrWan2AeDqM7JBaultg==}
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.54.2:
-    resolution: {integrity: sha512-Hu/BMoA1NAdRUuulyvQC0pEqZ4vQbGfn8f7wPXcnqQmM+zct9UliKxsIkLNmz/ku7LElUNqmaiv1TG/aL5ACsw==}
+  playwright@1.58.2:
+    resolution: {integrity: sha512-vA30H8Nvkq/cPBnNw4Q8TWz1EJyqgpuinBcHET0YVJVFldr8JDNiU9LaWAE1KqSkRYazuaBhTpB5ZzShOezQ6A==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -3425,9 +3426,9 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@playwright/test@1.54.2':
+  '@playwright/test@1.58.2':
     dependencies:
-      playwright: 1.54.2
+      playwright: 1.58.2
 
   '@podman-desktop/api@1.19.2': {}
 
@@ -3437,7 +3438,7 @@ snapshots:
     dependencies:
       '@podman-desktop/api': 1.19.2
 
-  '@podman-desktop/tests-playwright@1.26.0-next.202602231518-77d74de': {}
+  '@podman-desktop/tests-playwright@1.26.0-next.202603061522-ec09a80': {}
 
   '@rollup/rollup-android-arm-eabi@4.50.2':
     optional: true
@@ -5266,11 +5267,11 @@ snapshots:
 
   pidtree@0.6.0: {}
 
-  playwright-core@1.54.2: {}
+  playwright-core@1.58.2: {}
 
-  playwright@1.54.2:
+  playwright@1.58.2:
     dependencies:
-      playwright-core: 1.54.2
+      playwright-core: 1.58.2
     optionalDependencies:
       fsevents: 2.3.2
 
