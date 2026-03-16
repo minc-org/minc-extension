@@ -44,7 +44,7 @@ importers:
         version: 1.25.1
       '@podman-desktop/tests-playwright':
         specifier: next
-        version: 1.26.0-next.202603102000-668c98f
+        version: 1.26.0-next.202603131836-2427f5c
       '@types/node':
         specifier: ^22.18.13
         version: 22.18.13
@@ -106,8 +106,8 @@ importers:
         specifier: ^9.1.7
         version: 9.1.7
       lint-staged:
-        specifier: ^16.3.3
-        version: 16.3.3
+        specifier: ^16.4.0
+        version: 16.4.0
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -669,8 +669,8 @@ packages:
   '@podman-desktop/podman-extension-api@1.25.1':
     resolution: {integrity: sha512-jC7V3HkvYVNZmFfywdQYikDapnjpcIGm9m15QkFFrpvqn8PeMybyyMs0bVJeP2/MA//m56NT+WDWY5objm26Qw==}
 
-  '@podman-desktop/tests-playwright@1.26.0-next.202603102000-668c98f':
-    resolution: {integrity: sha512-gvtS46zdkNPX01PoJsOGj69xkAscuDiJY3453RFaMuXLH5vXilsfTt7MlHkjLXFJMZ6XuP5X6apXDX8hYzKHLw==}
+  '@podman-desktop/tests-playwright@1.26.0-next.202603131836-2427f5c':
+    resolution: {integrity: sha512-L4JImKYDdr9+7M0edqFFBy0WH2T6HYfhFfYm64YRWB3VuVPJUC/qPuKycHjFJt0LEtReU3QKouCAGPk2KOkqYg==}
 
   '@rollup/rollup-android-arm-eabi@4.59.0':
     resolution: {integrity: sha512-upnNBkA6ZH2VKGcBj9Fyl9IGNPULcjXRlg0LLeaioQWueH30p6IXtJEbKAgvyv+mJaMxSm1l6xwDXYjpEMiLMg==}
@@ -2139,8 +2139,8 @@ packages:
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
-  lint-staged@16.3.3:
-    resolution: {integrity: sha512-RLq2koZ5fGWrx7tcqx2tSTMQj4lRkfNJaebO/li/uunhCJbtZqwTuwPHpgIimAHHi/2nZIiGrkCHDCOeR1onxA==}
+  lint-staged@16.4.0:
+    resolution: {integrity: sha512-lBWt8hujh/Cjysw5GYVmZpFHXDCgZzhrOm8vbcUdobADZNOK/bRshr2kM3DfgrrtR1DQhfupW9gnIXOfiFi+bw==}
     engines: {node: '>=20.17'}
     hasBin: true
 
@@ -2702,8 +2702,8 @@ packages:
   tinyexec@1.0.1:
     resolution: {integrity: sha512-5uC6DDlmeqiOwCPmK9jMSdOuZTh8bU39Ys6yidB+UTt5hfZUPGAypSgFRiEp+jbi9qH40BLDvy85jIU88wKSqw==}
 
-  tinyexec@1.0.2:
-    resolution: {integrity: sha512-W/KYk+NFhkmsYpuHq5JykngiOCnxeVL8v8dFnqxSD8qEEdRfXk1SDM6JzNqcERbcGYj9tMrDQBYV9cjgnunFIg==}
+  tinyexec@1.0.4:
+    resolution: {integrity: sha512-u9r3uZC0bdpGOXtlxUIdwf9pkmvhqJdrVCH9fapQtgy/OeTTMZ1nqH7agtvEfmGui6e1XxjcdrlxvxJvc3sMqw==}
     engines: {node: '>=18'}
 
   tinyglobby@0.2.14:
@@ -3480,7 +3480,7 @@ snapshots:
     dependencies:
       '@podman-desktop/api': 1.25.1
 
-  '@podman-desktop/tests-playwright@1.26.0-next.202603102000-668c98f': {}
+  '@podman-desktop/tests-playwright@1.26.0-next.202603131836-2427f5c': {}
 
   '@rollup/rollup-android-arm-eabi@4.59.0':
     optional: true
@@ -5084,13 +5084,13 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
-  lint-staged@16.3.3:
+  lint-staged@16.4.0:
     dependencies:
       commander: 14.0.3
       listr2: 9.0.5
-      micromatch: 4.0.8
+      picomatch: 4.0.3
       string-argv: 0.3.2
-      tinyexec: 1.0.2
+      tinyexec: 1.0.4
       yaml: 2.8.2
 
   listr2@9.0.5:
@@ -5658,7 +5658,7 @@ snapshots:
 
   tinyexec@1.0.1: {}
 
-  tinyexec@1.0.2: {}
+  tinyexec@1.0.4: {}
 
   tinyglobby@0.2.14:
     dependencies:
