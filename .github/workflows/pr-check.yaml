@@ -83,12 +83,12 @@ jobs:
     env:
       SKIP_INSTALLATION: true
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with: 
           path: minc-extension
 
       # Checkout podman desktop
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           repository: podman-desktop/podman-desktop
           ref: main
