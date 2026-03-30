@@ -164,7 +164,7 @@ jobs:
           podman export $CONTAINER_ID > /tmp/local_minc_image.tar
           mkdir -p tests/playwright/output/minc-tests-pd/plugins
           tar -xf /tmp/local_minc_image.tar -C tests/playwright/output/minc-tests-pd/plugins/
-          
+
       - name: Run All E2E tests
         working-directory: ./minc-extension
         run: |
