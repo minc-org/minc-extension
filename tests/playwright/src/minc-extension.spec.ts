@@ -34,13 +34,17 @@ import {
   ResourceElementActions,
   isCI,
   isLinux,
+  resourceConnectionAction,
+  ResourceElementState,
+  deleteContainer,
+  deleteCluster,
 } from '@podman-desktop/tests-playwright';
 
 import { MincExtensionPage } from './model/pages/minc-extension-page';
 
 let extensionInstalled = false;
 let extensionCard: ExtensionCardPage;
-let resourcesPage: ResourceConnectionCardPage;
+let mincResourcesCard: ResourceConnectionCardPage;
 const imageName = 'ghcr.io/minc-org/minc-extension:latest';
 const extensionLabelMinc = 'minc-org.minc'; //region card
 const extensionLabelNameMinc = 'minc'; //details button
@@ -62,13 +66,19 @@ test.beforeAll(async ({ runner, page, welcomePage }) => {
   runner.setVideoAndTraceName('minc-extension-installation-e2e');
   await welcomePage.handleWelcomePage(true);
   extensionCard = new ExtensionCardPage(page, extensionLabelNameMinc, extensionLabelMinc);
-  resourcesPage = new ResourceConnectionCardPage(page, extensionLabelResourcesMinc);
+  mincResourcesCard = new ResourceConnectionCardPage(page, extensionLabelResourcesMinc);
   await waitForPodmanMachineStartup(page);
 });
 
-test.afterAll(async ({ runner }) => {
-  await runner.close();
-  console.log('Runner closed');
+test.afterAll(async ({ page, runner }) => {
+  try {
+    await deleteContainer(page, CONTAINER_NAME);
+    await deleteCluster(page, 'microshift', 'microshift', 'microshift');
+  } 
+  finally {
+    await runner.close();
+    console.log('Runner closed');
+  }   
 });
 
 test.describe
@@ -145,7 +155,7 @@ test.describe
           const dashboard = await navigationBar.openDashboard();
           await playExpect(dashboard.openshiftLocalProvider).toHaveCount(0, { timeout: 15_000 });
           await navigationBar.openSettings();
-          await playExpect(resourcesPage.card).toHaveCount(0, { timeout: 15_000 });
+          await playExpect(mincResourcesCard.card).toHaveCount(0, { timeout: 15_000 });
         });
 
         test('Extension can be re-enabled correctly', async ({ navigationBar }) => {
@@ -158,7 +168,7 @@ test.describe
           await extensionCard.enableExtension();
           await playExpect(extensionCard.status).toHaveText(ExtensionState.Active);
           await navigationBar.openSettings();
-          await playExpect(resourcesPage.card).toBeVisible();
+          await playExpect(mincResourcesCard.card).toBeVisible();
         });
       });
 
@@ -178,7 +188,6 @@ test.describe
           const settingsPage = await navigationBar.openSettings();
           const resourcesPage = await settingsPage.openTabPage(ResourcesPage);
           await playExpect(resourcesPage.heading).toBeVisible({ timeout: 10_000 });
-          const mincResourcesCard = new ResourceConnectionCardPage(page, 'microshift');
           await playExpect(mincResourcesCard.createButton).toBeVisible();
           await mincResourcesCard.createButton.click();
           const mincClusterForm = page.getByRole('form', { name: 'Properties Information' });
@@ -242,15 +251,28 @@ test.describe
           );
         });
 
+        // The MINC cluster operations cannot be done before deploying the pod due to https://github.com/minc-org/minc-extension/issues/386
         test('Remove pod from MINC cluster', async ({ page }) => {
-          await deleteKubernetesResource(page, KubernetesResources.Pods, POD_NAME);
+          await deleteKubernetesResource(page, KubernetesResources.Pods, POD_NAME, 60_000);
+        });
+
+        test('Stop MINC cluster', async ({ page }) => {
+          await resourceConnectionAction(page, mincResourcesCard, ResourceElementActions.Stop, ResourceElementState.Off, 50_000);
+        });
+    
+        test('Start MINC cluster', async ({ page }) => {
+          await resourceConnectionAction(page, mincResourcesCard, ResourceElementActions.Start, ResourceElementState.Running, 50_000);
+        });
+    
+        test('Restart MINC cluster', async ({ page }) => {
+          await resourceConnectionAction(page, mincResourcesCard, ResourceElementActions.Restart, ResourceElementState.Running, 50_000);
         });
 
         test('Delete MINC cluster', async ({ page, navigationBar }) => {
           const settingsPage = await navigationBar.openSettings();
           const resourcesPage = await settingsPage.openTabPage(ResourcesPage);
           await playExpect(resourcesPage.heading).toBeVisible({ timeout: 10_000 });
-          const mincResourcesCard = new ResourceConnectionCardPage(page, 'microshift');
+          //const mincResourcesCard = new ResourceConnectionCardPage(page, 'microshift');
           await mincResourcesCard.performConnectionAction(ResourceElementActions.Stop);
           await playExpect(mincResourcesCard.resourceElementConnectionStatus).toHaveText('OFF', { timeout: 60_000 });
           await mincResourcesCard.performConnectionAction(ResourceElementActions.Delete);
