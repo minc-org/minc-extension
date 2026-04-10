@@ -74,11 +74,10 @@ test.afterAll(async ({ page, runner }) => {
   try {
     await deleteContainer(page, CONTAINER_NAME);
     await deleteCluster(page, 'microshift', 'microshift', 'microshift');
-  } 
-  finally {
+  } finally {
     await runner.close();
     console.log('Runner closed');
-  }   
+  }
 });
 
 test.describe
@@ -257,15 +256,33 @@ test.describe
         });
 
         test('Stop MINC cluster', async ({ page }) => {
-          await resourceConnectionAction(page, mincResourcesCard, ResourceElementActions.Stop, ResourceElementState.Off, 50_000);
+          await resourceConnectionAction(
+            page,
+            mincResourcesCard,
+            ResourceElementActions.Stop,
+            ResourceElementState.Off,
+            50_000,
+          );
         });
-    
+
         test('Start MINC cluster', async ({ page }) => {
-          await resourceConnectionAction(page, mincResourcesCard, ResourceElementActions.Start, ResourceElementState.Running, 50_000);
+          await resourceConnectionAction(
+            page,
+            mincResourcesCard,
+            ResourceElementActions.Start,
+            ResourceElementState.Running,
+            50_000,
+          );
         });
-    
+
         test('Restart MINC cluster', async ({ page }) => {
-          await resourceConnectionAction(page, mincResourcesCard, ResourceElementActions.Restart, ResourceElementState.Running, 50_000);
+          await resourceConnectionAction(
+            page,
+            mincResourcesCard,
+            ResourceElementActions.Restart,
+            ResourceElementState.Running,
+            50_000,
+          );
         });
 
         test('Delete MINC cluster', async ({ page, navigationBar }) => {
