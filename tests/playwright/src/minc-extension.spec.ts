@@ -285,11 +285,10 @@ test.describe
           );
         });
 
-        test('Delete MINC cluster', async ({ page, navigationBar }) => {
+        test('Delete MINC cluster', async ({ navigationBar }) => {
           const settingsPage = await navigationBar.openSettings();
           const resourcesPage = await settingsPage.openTabPage(ResourcesPage);
           await playExpect(resourcesPage.heading).toBeVisible({ timeout: 10_000 });
-          //const mincResourcesCard = new ResourceConnectionCardPage(page, 'microshift');
           await mincResourcesCard.performConnectionAction(ResourceElementActions.Stop);
           await playExpect(mincResourcesCard.resourceElementConnectionStatus).toHaveText('OFF', { timeout: 60_000 });
           await mincResourcesCard.performConnectionAction(ResourceElementActions.Delete);
