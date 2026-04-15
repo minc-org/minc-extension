@@ -144,7 +144,7 @@ export class ProviderManager {
         records.push({
           type: 'info',
           record:
-            'Running as non-root user. The cluster will be created in rootless mode (--allow-rootless). Ensure host prerequisites are configured (cpuset delegation, subordinate UID/GID ranges).',
+            'Running as non-root user. To create in rootless mode, enable "Allow rootless Podman" (--allow-rootless). Ensure host prerequisites are configured (cpuset delegation, subordinate UID/GID ranges).',
         });
       }
       return { records };
