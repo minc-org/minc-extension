@@ -365,15 +365,16 @@ describe('auditRecords', () => {
     expect(result.records).toEqual([]);
   });
 
-  test('should return warning on Linux if running as non-root', async () => {
+  test('should return info on Linux if running as non-root', async () => {
     vi.mocked(env).isLinux = true;
     vi.mocked(podmanDesktopProcess.exec).mockResolvedValue({ stdout: '1000' } as RunResult);
 
     const result = await providerManager.auditRecords();
     expect(result.records).toEqual([
       {
-        type: 'error',
-        record: 'MINC requires a rootful podman. It is not possible to create a minc cluster in rootless mode.',
+        type: 'info',
+        record:
+          'Running as non-root user. The cluster will be created in rootless mode (--allow-rootless). Ensure host prerequisites are configured (cpuset delegation, subordinate UID/GID ranges).',
       },
     ]);
   });

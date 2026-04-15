@@ -52,17 +52,21 @@ export class CreateClusterHelper {
       httpsHostPort = Number(params['microshift.cluster.creation.https.port']);
     }
 
+    // check if rootless mode is requested
+    const allowRootless = params['microshift.cluster.creation.allow.rootless'] === true;
+
+    const args = ['create', '--http-port', String(httpHostPort), '--https-port', String(httpsHostPort)];
+    if (allowRootless) {
+      args.push('--allow-rootless');
+    }
+
     // now execute the command to create the cluster
     const startTime = performance.now();
     try {
-      await process.exec(
-        mincCliPath,
-        ['create', '--http-port', String(httpHostPort), '--https-port', String(httpsHostPort)],
-        {
-          logger,
-          token,
-        },
-      );
+      await process.exec(mincCliPath, args, {
+        logger,
+        token,
+      });
     } catch (error: unknown) {
       telemetryOptions.error = error;
       let errorMessage = '';
