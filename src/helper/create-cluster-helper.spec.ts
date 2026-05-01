@@ -77,6 +77,34 @@ describe('create', () => {
     );
   });
 
+  test('should pass --allow-rootless flag when rootless mode is enabled', async () => {
+    await createClusterHelper.create('/path/to/minc', {
+      'microshift.cluster.creation.allow.rootless': true,
+    });
+    expect(podmanDesktopProcess.exec).toHaveBeenCalledWith(
+      '/path/to/minc',
+      ['create', '--http-port', '80', '--https-port', '443', '--allow-rootless'],
+      {
+        logger: undefined,
+        token: undefined,
+      },
+    );
+  });
+
+  test('should not pass --allow-rootless flag when rootless mode is disabled', async () => {
+    await createClusterHelper.create('/path/to/minc', {
+      'microshift.cluster.creation.allow.rootless': false,
+    });
+    expect(podmanDesktopProcess.exec).toHaveBeenCalledWith(
+      '/path/to/minc',
+      ['create', '--http-port', '80', '--https-port', '443'],
+      {
+        logger: undefined,
+        token: undefined,
+      },
+    );
+  });
+
   test('should throw an error if the create command fails', async () => {
     vi.mocked(podmanDesktopProcess.exec).mockRejectedValue(new Error('Execution failed'));
 

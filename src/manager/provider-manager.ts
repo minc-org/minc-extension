@@ -142,8 +142,9 @@ export class ProviderManager {
       const uid = idCommandResult.stdout.trim();
       if (uid !== '0') {
         records.push({
-          type: 'error',
-          record: 'MINC requires a rootful podman. It is not possible to create a minc cluster in rootless mode.',
+          type: 'info',
+          record:
+            'Running as non-root user. To create in rootless mode, enable "Allow rootless Podman" (--allow-rootless). Ensure host prerequisites are configured (cpuset delegation, subordinate UID/GID ranges).',
         });
       }
       return { records };

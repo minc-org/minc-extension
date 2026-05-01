@@ -31,6 +31,13 @@
           "default": 443,
           "scope": "KubernetesProviderConnectionFactory",
           "description": "HTTPS Port for the routes"
+        },
+        "microshift.cluster.creation.allow.rootless": {
+          "type": "boolean",
+          "default": false,
+          "scope": "KubernetesProviderConnectionFactory",
+          "description": "Allow rootless Podman (Linux only). Requires host prerequisites (cpuset delegation and subordinate UID/GID ranges).",
+          "when": "isLinux"
         }
       }
     }
