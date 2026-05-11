@@ -54,7 +54,7 @@ importers:
         version: 1.26.2
       '@podman-desktop/tests-playwright':
         specifier: next
-        version: 1.28.0-next.202605071255-377c1db
+        version: 1.28.0-next.202605101544-590653b
       '@types/node':
         specifier: ^22.19.18
         version: 22.19.18
@@ -692,8 +692,8 @@ packages:
   '@podman-desktop/podman-extension-api@1.26.2':
     resolution: {integrity: sha512-WTs0NGjNRtpXQk3QElosyuWYv3sNh4AyZ5+BK6nJ5vCoaEcswcU7YeRJLwLV+vZqELM5f6arr+Gc+zr7cvYNNQ==}
 
-  '@podman-desktop/tests-playwright@1.28.0-next.202605071255-377c1db':
-    resolution: {integrity: sha512-LQ77Dh4Nh/1hGoY4KJr8CmY8PU+BahAdIdz3KQGtdmfUrnXT9QmHracb8WLFOjQMknN0JGuzET9vMrYb40FjSw==}
+  '@podman-desktop/tests-playwright@1.28.0-next.202605101544-590653b':
+    resolution: {integrity: sha512-qSW+kIQ22xUkeFcJCnijkW8j++d9smmUa0mjH0A2thqFP6ggkcY3Ls2D61w6iiS/1tZ99al2/gR0Ts8ITQ+S9Q==}
 
   '@rolldown/binding-android-arm64@1.0.0-rc.17':
     resolution: {integrity: sha512-s70pVGhw4zqGeFnXWvAzJDlvxhlRollagdCCKRgOsgUOH3N1l0LIxf83AtGzmb5SiVM4Hjl5HyarMRfdfj3DaQ==}
@@ -3620,7 +3620,7 @@ snapshots:
     dependencies:
       '@podman-desktop/api': 1.26.2
 
-  '@podman-desktop/tests-playwright@1.28.0-next.202605071255-377c1db': {}
+  '@podman-desktop/tests-playwright@1.28.0-next.202605101544-590653b': {}
 
   '@rolldown/binding-android-arm64@1.0.0-rc.17':
     optional: true
