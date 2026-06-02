@@ -24,14 +24,12 @@ COPY *.js /opt/app-root/extension-source/
 COPY *.png /opt/app-root/extension-source/
 COPY .gitignore /opt/app-root/extension-source/
 COPY *.json /opt/app-root/extension-source/
-COPY pnpm-lock.yaml /opt/app-root/extension-source/
 COPY src /opt/app-root/extension-source/src
 COPY types /opt/app-root/extension-source/types
 
-# refresh dependencies (if needed)
-# and build the extension
-RUN pnpm --frozen-lockfile install && \
-    pnpm build
+# node_modules come from the builder image (Containerfile.builder);
+# rebuild that image when package.json or pnpm-lock.yaml change.
+RUN pnpm build
 
 # copy output of the build + required files
 RUN mkdir /opt/app-root/extension && \
