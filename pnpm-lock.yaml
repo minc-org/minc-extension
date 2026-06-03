@@ -56,7 +56,7 @@ importers:
         version: 1.27.2
       '@podman-desktop/tests-playwright':
         specifier: next
-        version: 1.28.0-next.202605291412-1085e1f
+        version: 1.28.0-next.202606031628-9ec8a0b
       '@types/node':
         specifier: ^22.19.19
         version: 22.19.19
@@ -76,8 +76,8 @@ importers:
         specifier: ^20.5.3
         version: 20.5.3(@types/node@22.19.19)(conventional-commits-parser@6.4.0)(typescript@5.9.3)
       concurrently:
-        specifier: ^10.0.1
-        version: 10.0.1
+        specifier: ^10.0.3
+        version: 10.0.3
       cross-env:
         specifier: 10.1.0
         version: 10.1.0
@@ -752,8 +752,8 @@ packages:
   '@podman-desktop/podman-extension-api@1.27.2':
     resolution: {integrity: sha512-HeIU34otQ7J/KM34n6rDgW/eH1EfoPHqsA9WkB01yIEH464x1CuferGRtm7i3n2SWqTaatWHaRDsl61NQI3zSg==}
 
-  '@podman-desktop/tests-playwright@1.28.0-next.202605291412-1085e1f':
-    resolution: {integrity: sha512-ZkYe8bWVwq90whpsmher8Var5i8t/gx+1cWoYPbhYNiriubGj4uPHSNLbGFuFDfplecHLjnSIt8fyPHoijhE/Q==}
+  '@podman-desktop/tests-playwright@1.28.0-next.202606031628-9ec8a0b':
+    resolution: {integrity: sha512-WX0EcyABaJjbGx1YG6J7WkvaZI7hwf6XjfkSwF8+9Yj7srmT9vpKNYQG9HF4PVCrcgnw5ulblxftHzwdFcbdNQ==}
 
   '@rolldown/binding-android-arm64@1.0.3':
     resolution: {integrity: sha512-454rs7jHngixp/NMxd5srYD57OnzSlZ/eFTETjORQHLwJG1lRtmNOJcBerZlfu4GjKqeq8aCCIQrMdHyhI51Hw==}
@@ -1514,8 +1514,8 @@ packages:
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  concurrently@10.0.1:
-    resolution: {integrity: sha512-vN61cP9COzctyhBqKUOh9YHqU70hYPnaHqNpXdBzM9PcwIpfPAvNK06hjm4gEJEGuvy4GBairO6uU32+FKpS4g==}
+  concurrently@10.0.3:
+    resolution: {integrity: sha512-hc3LH4UaKWd/bbyDK/IGVa4RB6PtQ3CUYwtrkzqHn+wIG3Hr5fhpRlk0L/gCa8ZE1L/Ufj50Zho69cI5w8SQBA==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -3805,7 +3805,7 @@ snapshots:
     dependencies:
       '@podman-desktop/api': 1.27.2
 
-  '@podman-desktop/tests-playwright@1.28.0-next.202605291412-1085e1f': {}
+  '@podman-desktop/tests-playwright@1.28.0-next.202606031628-9ec8a0b': {}
 
   '@rolldown/binding-android-arm64@1.0.3':
     optional: true
@@ -4536,7 +4536,7 @@ snapshots:
 
   concat-map@0.0.1: {}
 
-  concurrently@10.0.1:
+  concurrently@10.0.3:
     dependencies:
       chalk: 5.6.2
       rxjs: 7.8.2
