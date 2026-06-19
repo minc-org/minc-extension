@@ -36,7 +36,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: pnpm/action-setup@v6
         name: Install pnpm
@@ -83,12 +83,12 @@ jobs:
     env:
       SKIP_INSTALLATION: true
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with: 
           path: minc-extension
 
       # Checkout podman desktop
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           repository: podman-desktop/podman-desktop
           ref: main
