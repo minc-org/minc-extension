@@ -57,7 +57,7 @@ importers:
         version: 1.27.2
       '@podman-desktop/tests-playwright':
         specifier: next
-        version: 1.29.0-next.202606151533-b715f4d
+        version: 1.29.0-next.202606261629-a56984d
       '@types/node':
         specifier: ^22.19.21
         version: 22.19.21
@@ -113,8 +113,8 @@ importers:
         specifier: ^61.0.2
         version: 61.0.2(eslint@9.29.0(jiti@2.6.1))
       globals:
-        specifier: ^17.6.0
-        version: 17.6.0
+        specifier: ^17.7.0
+        version: 17.7.0
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -756,8 +756,8 @@ packages:
   '@podman-desktop/podman-extension-api@1.27.2':
     resolution: {integrity: sha512-HeIU34otQ7J/KM34n6rDgW/eH1EfoPHqsA9WkB01yIEH464x1CuferGRtm7i3n2SWqTaatWHaRDsl61NQI3zSg==}
 
-  '@podman-desktop/tests-playwright@1.29.0-next.202606151533-b715f4d':
-    resolution: {integrity: sha512-+vd8PcC1xlQ9tVQkDKgTgebxvZKMjBzHXvz9DfckF2T4DKUIJuFT570vQ75CMGh2jxSI+C33+XlutfCoSfzKvQ==}
+  '@podman-desktop/tests-playwright@1.29.0-next.202606261629-a56984d':
+    resolution: {integrity: sha512-XZcQE3FYla8Sabk4eRqEPVvQxqg9YwGu4Y1pRsc/QbKxMSfRdteXiu8Ysq/snEz7URIYVTOQw5LavW3xwSLw9g==}
 
   '@rolldown/binding-android-arm64@1.0.3':
     resolution: {integrity: sha512-454rs7jHngixp/NMxd5srYD57OnzSlZ/eFTETjORQHLwJG1lRtmNOJcBerZlfu4GjKqeq8aCCIQrMdHyhI51Hw==}
@@ -2016,6 +2016,7 @@ packages:
   git-raw-commits@5.0.1:
     resolution: {integrity: sha512-Y+csSm2GD/PCSh6Isd/WiMjNAydu0VBiG9J7EdQsNA5P9uXvLayqjmTsNlK5Gs9IhblFZqOU0yid5Il5JPoLiQ==}
     engines: {node: '>=18'}
+    deprecated: Deprecated and no longer maintained. Use @conventional-changelog/git-client instead.
     hasBin: true
 
   glob-parent@5.1.2:
@@ -2042,8 +2043,8 @@ packages:
     resolution: {integrity: sha512-c/c15i26VrJ4IRt5Z89DnIzCGDn9EcebibhAOjw5ibqEHsE1wLUgkPn9RDmNcUKyU87GeaL633nyJ+pplFR2ZQ==}
     engines: {node: '>=18'}
 
-  globals@17.6.0:
-    resolution: {integrity: sha512-sepffkT8stwnIYbsMBpoCHJuJM5l98FUF2AnE07hfvE0m/qp3R586hw4jF4uadbhvg1ooIdzuu7CsfD2jzCaNA==}
+  globals@17.7.0:
+    resolution: {integrity: sha512-Czmyns5dUsq4seFBR/Kdydhmo8y9kC79hiSkPn0YcGtNnYWnrgt0vjrSjx9tspoDGWm2CMarffRuLjM4xUz8xg==}
     engines: {node: '>=18'}
 
   globalthis@1.0.4:
@@ -3817,7 +3818,7 @@ snapshots:
     dependencies:
       '@podman-desktop/api': 1.27.2
 
-  '@podman-desktop/tests-playwright@1.29.0-next.202606151533-b715f4d': {}
+  '@podman-desktop/tests-playwright@1.29.0-next.202606261629-a56984d': {}
 
   '@rolldown/binding-android-arm64@1.0.3':
     optional: true
@@ -4938,7 +4939,7 @@ snapshots:
       bytes: 3.1.2
       eslint: 9.29.0(jiti@2.6.1)
       functional-red-black-tree: 1.0.1
-      globals: 17.6.0
+      globals: 17.7.0
       jsx-ast-utils-x: 0.1.0
       lodash.merge: 4.6.2
       minimatch: 10.2.5
@@ -5202,7 +5203,7 @@ snapshots:
 
   globals@16.5.0: {}
 
-  globals@17.6.0: {}
+  globals@17.7.0: {}
 
   globalthis@1.0.4:
     dependencies:
