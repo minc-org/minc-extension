@@ -95,8 +95,6 @@ jobs:
       - name: Update Podman
         if: matrix.os != 'macos-26'
         uses: redhat-actions/podman-install@main
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Revert unprivileged user namespace restrictions in Ubuntu 24.04
         if: matrix.os == 'ubuntu-24.04'
@@ -151,4 +149,6 @@ jobs:
         if: always()
         with:
           name: e2e-tests-${{ matrix.os }}
-          path: ./**/tests/**/output/
+          path: |
+            ./**/tests/**/output/
+            ./**/tests/output/

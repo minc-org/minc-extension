@@ -4,3 +4,4 @@ node_modules
 playwright-report
 test-results
 tests/playwright/output
+tests/output
