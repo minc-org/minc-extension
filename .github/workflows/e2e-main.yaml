@@ -45,9 +45,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # macos: extension install/handling only (cluster workflow skipped on CI).
-        # GH-hosted arm64 mac cannot run podman machine (no nested virt), so the
-        # extension is built locally and SKIP_INSTALLATION is set (same as CRC).
         os: [windows-2022, ubuntu-24.04, macos-26]
     runs-on: ${{ matrix.os }}
     steps:

@@ -68,7 +68,6 @@ test.beforeAll(async ({ runner, page, welcomePage }) => {
   extensionCard = new ExtensionCardPage(page, extensionLabelNameMinc, extensionLabelMinc);
   mincResourcesCard = new ResourceConnectionCardPage(page, extensionLabelResourcesMinc);
   // Cluster workflow is skipped on CI, so a running Podman machine is not needed.
-  // GH-hosted mac runners also cannot create one (no nested virt).
   if (!isCI) {
     await waitForPodmanMachineStartup(page);
   }
