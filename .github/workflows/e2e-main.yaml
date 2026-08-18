@@ -105,14 +105,10 @@ jobs:
           pnpm install
           pnpm test:e2e:build
 
-      - name: Ensure getting current HEAD version of the test framework
-        working-directory: ./minc-extension
-        run: |
-          pnpm add -D @podman-desktop/tests-playwright@next
 
       - name: Install Minc extension's dependencies
         working-directory: ./minc-extension
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install
 
       # macOS cannot pull the OCI image (no podman machine); preload like CRC e2e
       - name: Build and preload Minc extension locally (macOS)

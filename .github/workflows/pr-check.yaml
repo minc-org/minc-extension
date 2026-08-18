@@ -151,10 +151,6 @@ jobs:
           # allow unprivileged user namespace
           sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
 
-      - name: Ensure getting current HEAD version of the test framework
-        working-directory: ./minc-extension
-        run: |
-          pnpm add -D @podman-desktop/tests-playwright@next
       
       - name: Build MINC extension from container file
         working-directory: ./minc-extension
