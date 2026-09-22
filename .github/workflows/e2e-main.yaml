@@ -88,6 +88,29 @@ jobs:
           Write-Host "Checking for and installing latest WSL kernel update..."
           wsl --update
 
+      # wsl --update can leave a background Windows Installer operation
+      # (MSI) finishing up, which holds the global installer mutex and
+      # makes the very next msiexec-based install (Podman) fail with
+      # "Failed to grab execution mutex" / exit code 1618. Wait for the
+      # mutex to be free before installing Podman. See #549.
+      - name: Wait for Windows Installer to be idle
+        if: matrix.os == 'windows-2022'
+        shell: pwsh
+        run: |
+          $deadline = (Get-Date).AddSeconds(180)
+          while ((Get-Date) -lt $deadline) {
+            try {
+              $mutex = [System.Threading.Mutex]::OpenExisting("Global\_MSIExecute")
+              $mutex.Close()
+              Write-Host "Windows Installer is busy, waiting 5s..."
+              Start-Sleep -Seconds 5
+            } catch [System.Threading.WaitHandleCannotBeOpenedException] {
+              Write-Host "Windows Installer mutex is free."
+              exit 0
+            }
+          }
+          Write-Host "Timed out waiting for Windows Installer to become idle; proceeding anyway."
+
       # podman-install supports Linux/Windows only (no-op on macOS)
       - name: Update Podman
         if: matrix.os != 'macos-26'
