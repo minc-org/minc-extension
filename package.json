@@ -72,7 +72,7 @@
     "@podman-desktop/api": "^1.29.1",
     "@podman-desktop/podman-extension-api": "^1.29.0",
     "@podman-desktop/tests-playwright": "^1.29.0",
-    "@types/node": "^22.19.21",
+    "@types/node": "^22.20.4",
     "@typescript-eslint/eslint-plugin": "^8.71.0",
     "@typescript-eslint/parser": "^8.71.0",
     "@vitest/coverage-v8": "^5.0.3",
