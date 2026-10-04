@@ -219,7 +219,7 @@ importers:
         version: 1.28.3
       '@podman-desktop/tests-playwright':
         specifier: next
-        version: 1.31.0-next.202610021837-49664fd
+        version: 1.31.0-next.202610011401-359d700
       '@types/node':
         specifier: ^22.19.21
         version: 22.19.21
@@ -239,8 +239,8 @@ importers:
         specifier: ^20.5.3
         version: 20.5.3(@types/node@22.19.21)(conventional-commits-parser@6.4.0)(typescript@5.9.3)
       concurrently:
-        specifier: ^10.0.3
-        version: 10.0.3
+        specifier: ^10.0.5
+        version: 10.0.5
       cross-env:
         specifier: 10.1.0
         version: 10.1.0
@@ -910,8 +910,8 @@ packages:
   '@podman-desktop/podman-extension-api@1.28.3':
     resolution: {integrity: sha512-j9OwVI3uN9nxLDtSwKwak8Xgw7TWRV0nlxm/Kop1OFv+EJF7Nb+0wXL8A6z011hA86XKWg7wFAF3HXS5hflZqw==}
 
-  '@podman-desktop/tests-playwright@1.31.0-next.202610021837-49664fd':
-    resolution: {integrity: sha512-t1nVBeSpFjfou9vt+JPQC8cNbNhpc9b6Hxj128qEEfivG3pNCVKO2bjkK8IG8RynOSMNXxjixb+R02SjX3sQug==}
+  '@podman-desktop/tests-playwright@1.31.0-next.202610011401-359d700':
+    resolution: {integrity: sha512-qywy1Znx8879yDuZCw/yKsJRPwMvWaAYS4QsoYY7yFwP32/hSIgaJOcH/HsIMNN3cXUf2Re7cjyNZT7eCva3qQ==}
 
   '@rolldown/binding-android-arm-eabi@1.2.12':
     resolution: {integrity: sha512-dB/a1214qKfHMXCpgqR4OZT+jS4kTyEXbQGJPqzobt5EwH5rX080pxE37alt3RzvR1bf1Yz/yGqRfrYAxuPw0A==}
@@ -1505,8 +1505,8 @@ packages:
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  concurrently@10.0.3:
-    resolution: {integrity: sha512-hc3LH4UaKWd/bbyDK/IGVa4RB6PtQ3CUYwtrkzqHn+wIG3Hr5fhpRlk0L/gCa8ZE1L/Ufj50Zho69cI5w8SQBA==}
+  concurrently@10.0.5:
+    resolution: {integrity: sha512-JaP/CoftUrCcAFW/g//RbgEGwlelnEae6cfBLgH6ZdO6s8jPkn6p9SB9u6pdVxYXoiSnFqseOlHfrEfF82TVOg==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -2649,8 +2649,8 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
-  shell-quote@1.10.0:
-    resolution: {integrity: sha512-w1aiOKwKuRgtwAReIIj89puqg+I7GvX4IbLrvmhXbzQsj1+Zwi4VO3+fa6ZF91TWSjIxoEkKnMeHcLEODK5ZXA==}
+  shell-quote@1.9.0:
+    resolution: {integrity: sha512-Iov+JwFv/2HcTpcwNMKd8+IWNb8tboQJNQTkAY/LLVK7gGH9jy+LGkVqPxfekHl+yMmiqXszdGWXgkfml7hjqA==}
     engines: {node: '>= 0.4'}
 
   side-channel-list@1.0.0:
@@ -3616,7 +3616,7 @@ snapshots:
     dependencies:
       '@podman-desktop/api': 1.28.3
 
-  '@podman-desktop/tests-playwright@1.31.0-next.202610021837-49664fd': {}
+  '@podman-desktop/tests-playwright@1.31.0-next.202610011401-359d700': {}
 
   '@rolldown/binding-android-arm-eabi@1.2.12':
     optional: true
@@ -4170,11 +4170,11 @@ snapshots:
 
   concat-map@0.0.1: {}
 
-  concurrently@10.0.3:
+  concurrently@10.0.5:
     dependencies:
       chalk: 5.6.2
       rxjs: 7.8.2
-      shell-quote: 1.10.0
+      shell-quote: 1.9.0
       supports-color: 10.2.2
       tree-kill: 1.2.2
       yargs: 18.0.0
@@ -5420,7 +5420,7 @@ snapshots:
 
   shebang-regex@3.0.0: {}
 
-  shell-quote@1.10.0: {}
+  shell-quote@1.9.0: {}
 
   side-channel-list@1.0.0:
     dependencies:
