@@ -6,7 +6,7 @@
   },
   "files": {
     "maxSize": 1600000,
-    "ignore": ["**/coverage/**", "**/dist/**", "**/output/**"]
+    "includes": ["**", "!**/coverage/**", "!**/dist/**", "!**/output/**"]
   },
   "javascript": {
     "formatter": {
@@ -24,7 +24,5 @@
   "linter": {
     "enabled": true
   },
-  "organizeImports": {
-    "enabled": false
-  }
+  "assist": { "actions": { "source": { "organizeImports": "off" } } }
 }
