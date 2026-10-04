@@ -28,7 +28,6 @@ import { FlatCompat } from '@eslint/eslintrc';
 import unicorn from 'eslint-plugin-unicorn';
 import noNull from 'eslint-plugin-no-null';
 import sonarjs from 'eslint-plugin-sonarjs';
-import etc from 'eslint-plugin-etc';
 import redundantUndefined from 'eslint-plugin-redundant-undefined';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
@@ -59,15 +58,12 @@ export default [
   js.configs.recommended,
   ...typescriptLint.configs.recommended,
   sonarjs.configs.recommended,
-  ...fixupConfigRules(
-    compat.extends('plugin:import/recommended', 'plugin:import/typescript', 'plugin:etc/recommended'),
-  ),
+  ...fixupConfigRules(compat.extends('plugin:import/recommended', 'plugin:import/typescript')),
   {
     plugins: {
-      // compliant v9 plug-ins
+      // compliant v10 plug-ins
       unicorn,
-      // non-compliant v9 plug-ins
-      etc: fixupPluginRules(etc),
+      // non-compliant v10 plug-ins
       import: fixupPluginRules(importPlugin),
       'no-null': fixupPluginRules(noNull),
       'redundant-undefined': fixupPluginRules(redundantUndefined),
@@ -145,6 +141,9 @@ export default [
       'sonarjs/deprecation': 'off',
       'sonarjs/todo-tag': 'off',
       'sonarjs/sonar-no-fallthrough': 'off',
+      'sonarjs/assertions-in-tests': 'off',
+      'sonarjs/no-skipped-tests': 'off',
+      'sonarjs/prefer-specific-assertions': 'off',
 
       /**
        * Having a semicolon helps the optimizer interpret your code correctly.
@@ -169,6 +168,10 @@ export default [
       'import/no-extraneous-dependencies': 'error',
       'redundant-undefined/redundant-undefined': 'error',
       'import/no-extraneous-dependencies': 'error',
+
+      // new rule that has been added as a recommended one in eslint v10
+      // but comment it by default until we can fix all the issues in the codebase
+      'preserve-caught-error': 'off',
     },
   },
 ];

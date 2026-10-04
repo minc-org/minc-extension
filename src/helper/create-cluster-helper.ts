@@ -69,13 +69,8 @@ export class CreateClusterHelper {
       });
     } catch (error: unknown) {
       telemetryOptions.error = error;
-      let errorMessage = '';
-
-      if (error && typeof error === 'object' && 'message' in error) {
-        errorMessage = String(error.message);
-      } else {
-        errorMessage = String(error);
-      }
+      const errorMessage =
+        error && typeof error === 'object' && 'message' in error ? String(error.message) : String(error);
 
       throw new Error(`Failed to create minc cluster. ${errorMessage}`);
     } finally {

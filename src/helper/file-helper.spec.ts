@@ -198,7 +198,7 @@ describe('whereBinary', () => {
     );
   });
 
-  test('should return executable if not able to execute which', async () => {
+  test('should return executable if not able to execute where on windows', async () => {
     vi.mocked(env).isWindows = true;
     vi.mocked(podmanDesktopProcess.exec).mockRejectedValue(new Error('fake error executing which'));
 
