@@ -46,8 +46,8 @@ export class InversifyBinding {
     this.#container.bind(TelemetryLoggerSymbol).toConstantValue(this.#telemetryLogger);
     this.#container.bind(Octokit).toConstantValue(this.#octokit);
 
-    await this.#container.load(managersModule);
-    await this.#container.load(helpersModule);
+    await this.#container.loadAsync(managersModule);
+    await this.#container.loadAsync(helpersModule);
 
     // get provider manager
     await this.#container.getAsync(ProviderManager);
@@ -56,7 +56,7 @@ export class InversifyBinding {
 
   async dispose(): Promise<void> {
     if (this.#container) {
-      await this.#container.unbindAll();
+      await this.#container.unbindAllAsync();
     }
   }
 }

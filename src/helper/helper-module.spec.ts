@@ -40,7 +40,7 @@ describe('helpersModule', () => {
     container.bind(Octokit).toConstantValue({} as Octokit);
 
     // Load the helpersModule bindings into the container
-    await container.load(helpersModule);
+    await container.loadAsync(helpersModule);
   });
 
   test('should bind ClusterSearchHelper as a singleton', () => {
