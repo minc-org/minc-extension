@@ -215,11 +215,11 @@ importers:
         specifier: ^1.29.1
         version: 1.29.1
       '@podman-desktop/podman-extension-api':
-        specifier: ^1.28.3
-        version: 1.28.3
+        specifier: ^1.29.0
+        version: 1.29.1
       '@podman-desktop/tests-playwright':
-        specifier: next
-        version: 1.31.0-next.202610011401-359d700
+        specifier: ^1.29.0
+        version: 1.29.1
       '@types/node':
         specifier: ^22.19.21
         version: 22.19.21
@@ -901,17 +901,14 @@ packages:
     engines: {node: '>=20'}
     hasBin: true
 
-  '@podman-desktop/api@1.28.3':
-    resolution: {integrity: sha512-RCYrD90VfVn59oa8vTaDXj8Qy9BD0jxyiTNBhKNcloYf1hBCDMIKgqTcXYgNq15/5P1aGjRmgaG/jnhDEuux/g==}
-
   '@podman-desktop/api@1.29.1':
     resolution: {integrity: sha512-UtCY2t5hVLz5pHXSV5DmQESPLUqSxDgKhJfqlQ4GO7L0x/fQdaX22KGbuzOEUSs1KzB0nwWNB3ylaTcE/OBdZA==}
 
-  '@podman-desktop/podman-extension-api@1.28.3':
-    resolution: {integrity: sha512-j9OwVI3uN9nxLDtSwKwak8Xgw7TWRV0nlxm/Kop1OFv+EJF7Nb+0wXL8A6z011hA86XKWg7wFAF3HXS5hflZqw==}
+  '@podman-desktop/podman-extension-api@1.29.1':
+    resolution: {integrity: sha512-jB6oC97jyEUWIRyovCVShwRVjJbsJecs6qrDnMRkpRzP9RTChRXDZqdoenLmA5WKXpUC0++CXDerNIWopYIfJQ==}
 
-  '@podman-desktop/tests-playwright@1.31.0-next.202610011401-359d700':
-    resolution: {integrity: sha512-qywy1Znx8879yDuZCw/yKsJRPwMvWaAYS4QsoYY7yFwP32/hSIgaJOcH/HsIMNN3cXUf2Re7cjyNZT7eCva3qQ==}
+  '@podman-desktop/tests-playwright@1.29.1':
+    resolution: {integrity: sha512-MS2rXf3hnCTxykyAJ6BfU2OC38+vElcwPHWAT4dIEhWslZ77LEIytO1ym+6AsefsCql9rTUBEj26oSN6r3Dg0Q==}
 
   '@rolldown/binding-android-arm-eabi@1.2.12':
     resolution: {integrity: sha512-dB/a1214qKfHMXCpgqR4OZT+jS4kTyEXbQGJPqzobt5EwH5rX080pxE37alt3RzvR1bf1Yz/yGqRfrYAxuPw0A==}
@@ -3608,15 +3605,13 @@ snapshots:
     dependencies:
       playwright: 1.63.0
 
-  '@podman-desktop/api@1.28.3': {}
-
   '@podman-desktop/api@1.29.1': {}
 
-  '@podman-desktop/podman-extension-api@1.28.3':
+  '@podman-desktop/podman-extension-api@1.29.1':
     dependencies:
-      '@podman-desktop/api': 1.28.3
+      '@podman-desktop/api': 1.29.1
 
-  '@podman-desktop/tests-playwright@1.31.0-next.202610011401-359d700': {}
+  '@podman-desktop/tests-playwright@1.29.1': {}
 
   '@rolldown/binding-android-arm-eabi@1.2.12':
     optional: true
