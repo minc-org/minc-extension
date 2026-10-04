@@ -16,14 +16,12 @@
  * SPDX-License-Identifier: Apache-2.0
  ***********************************************************************/
 
-import { Octokit } from '@octokit/rest'; // Assuming using Octokit from @octokit/rest package
+import { Octokit } from '@octokit/rest';
 import { vi, expect, beforeEach, describe, test } from 'vitest';
 import { InversifyBinding } from './inversify-binding';
 import type { ExtensionContext, TelemetryLogger } from '@podman-desktop/api';
 import { ExtensionContextSymbol, TelemetryLoggerSymbol } from './symbol';
-import { Container } from 'inversify';
-import { helpersModule } from '../helper/helper-module';
-import { managersModule } from '../manager/manager-module';
+import { ProviderManager } from '../manager/provider-manager';
 
 let inversifyBinding: InversifyBinding;
 
@@ -31,39 +29,33 @@ const extensionContextMock = {} as ExtensionContext;
 const telemetryLoggerMock = {} as TelemetryLogger;
 const octokitMock: Octokit = {} as Octokit;
 
-// mock inversify
-vi.mock(import('inversify'));
-
 describe('InversifyBinding', () => {
   beforeEach(() => {
     vi.resetAllMocks();
     inversifyBinding = new InversifyBinding(extensionContextMock, telemetryLoggerMock, octokitMock);
-    vi.mocked(Container.prototype.bind).mockReturnValue({
-      toConstantValue: vi.fn(),
-    } as unknown as ReturnType<typeof Container.prototype.bind>);
   });
 
   test('should initialize bindings correctly', async () => {
-    // Initialize bindings
-    await inversifyBinding.initBindings();
+    const container = await inversifyBinding.initBindings();
 
-    // check we call bind
-    expect(vi.mocked(Container.prototype.bind)).toHaveBeenCalledWith(ExtensionContextSymbol);
-    expect(vi.mocked(Container.prototype.bind)).toHaveBeenCalledWith(TelemetryLoggerSymbol);
-    expect(vi.mocked(Container.prototype.bind)).toHaveBeenCalledWith(Octokit);
-
-    // expect load of modules
-    expect(vi.mocked(Container.prototype.load)).toHaveBeenCalledWith(helpersModule);
-    expect(vi.mocked(Container.prototype.load)).toHaveBeenCalledWith(managersModule);
+    expect(container.get(ExtensionContextSymbol)).toBe(extensionContextMock);
+    expect(container.get(TelemetryLoggerSymbol)).toBe(telemetryLoggerMock);
+    expect(container.get(Octokit)).toBe(octokitMock);
+    expect(container.get(ProviderManager)).toBeInstanceOf(ProviderManager);
   });
 
   test('should dispose of the container', async () => {
     const container = await inversifyBinding.initBindings();
 
-    // Dispose of the container
     await inversifyBinding.dispose();
 
-    // instances gone
-    expect(container.unbindAll).toHaveBeenCalled();
+    // bindings gone
+    expect(() => container.get(ExtensionContextSymbol)).toThrow();
   });
+});
+
+test('should not fail to dispose if not initialized', async () => {
+  await expect(
+    new InversifyBinding(extensionContextMock, telemetryLoggerMock, octokitMock).dispose(),
+  ).resolves.toBeUndefined();
 });

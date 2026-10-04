@@ -210,6 +210,11 @@ describe('whereBinary', () => {
       expect.objectContaining({ env: { PATH: expect.any(String) } }),
     );
   });
+  test('should return executable if OS is unknown', async () => {
+    const computedPath = await fileHelper.whereBinary('minc');
+    expect(computedPath).toBe('minc');
+    expect(podmanDesktopProcess.exec).not.toHaveBeenCalled();
+  });
 });
 
 describe('getSystemBinaryPath', () => {

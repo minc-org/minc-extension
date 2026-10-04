@@ -319,10 +319,7 @@ export class ProviderManager {
         item.disposable.dispose();
 
         // remove the item from the list
-        const index = this.registeredKubernetesConnections.indexOf(item);
-        if (index > -1) {
-          this.registeredKubernetesConnections.splice(index, 1);
-        }
+        this.registeredKubernetesConnections.splice(this.registeredKubernetesConnections.indexOf(item), 1);
       }
     }
   }

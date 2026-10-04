@@ -44,6 +44,10 @@ const config = {
       },
     },
   },
+  // decorator metadata is not used (all injections use explicit tokens) and adds uncoverable branches
+  oxc: {
+    decorator: { legacy: true, emitDecoratorMetadata: false },
+  },
   resolve: {
     alias: {
       '@podman-desktop/api': path.resolve(__dirname, '__mocks__/@podman-desktop/api.js'),

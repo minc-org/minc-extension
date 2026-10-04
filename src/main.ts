@@ -32,10 +32,3 @@ export async function deactivate(): Promise<void> {
   await mincExtension?.deactivate();
   mincExtension = undefined;
 }
-
-// Expose mincExtension for testing purposes
-if (process.env.NODE_ENV === 'test') {
-  Object.defineProperty(global, 'mincExtension', {
-    get: () => mincExtension,
-  });
-}

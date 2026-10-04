@@ -479,3 +479,60 @@ describe('auditRecords', () => {
     expect(result.records[0].record).toContain('Unable to check if podman is using rootless or rootful');
   });
 });
+
+test('should create cluster without prompting if minc cli is installed', async () => {
+  vi.mocked(cliToolManagerMock.getPath).mockReturnValue('/existing/minc');
+
+  await providerManager.create();
+
+  const connectionFactory = vi.mocked(providerMock.setKubernetesProviderConnectionFactory).mock.calls[0][0];
+  await connectionFactory.create?.({});
+
+  expect(window.showInformationMessage).not.toHaveBeenCalled();
+  expect(createClusterHelperMock.create).toHaveBeenCalledWith('/existing/minc', {}, undefined, undefined);
+});
+
+test('should ignore containerEngine events that are not container events', async () => {
+  const spySearchAndUpdateMincClusters = vi.spyOn(providerManager, 'searchAndUpdateMincClusters');
+  await providerManager.track({} as unknown as Provider);
+  spySearchAndUpdateMincClusters.mockClear();
+
+  const onEventCallback = vi.mocked(containerEngine.onEvent).mock.calls[0][0];
+  onEventCallback?.({ Type: 'image' } as unknown as ContainerJSONEvent);
+
+  expect(spySearchAndUpdateMincClusters).not.toHaveBeenCalled();
+});
+
+describe('auditRecords on podman connections', () => {
+  beforeEach(() => {
+    vi.mocked(env).isLinux = false;
+    vi.mocked(env).isMac = true;
+  });
+
+  test('should return empty records if no started podman connection', async () => {
+    vi.mocked(provider.getContainerConnections).mockReturnValue([]);
+
+    const result = await providerManager.auditRecords();
+    expect(result.records).toEqual([]);
+  });
+
+  test('should return empty records if Podman is rootful', async () => {
+    vi.mocked(provider.getContainerConnections).mockReturnValue([
+      {
+        connection: {
+          status: (): ProviderConnectionStatus => 'started',
+          type: 'podman',
+        } as unknown as ContainerProviderConnection,
+      } as unknown as ProviderContainerConnection,
+    ]);
+    const mockExec = vi.fn().mockResolvedValue({
+      stdout: JSON.stringify({ host: { security: { rootless: false } } }),
+    });
+    vi.mocked(extensions.getExtension).mockReturnValue({
+      exports: { exec: mockExec },
+    } as unknown as Extension<unknown>);
+
+    const result = await providerManager.auditRecords();
+    expect(result.records).toEqual([]);
+  });
+});

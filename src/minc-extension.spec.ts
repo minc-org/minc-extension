@@ -56,3 +56,13 @@ test('should deactivate correctly', async () => {
   expect(mincExtension.getContainer()?.isBound(ProviderManager)).toBeFalsy();
   expect(mincExtension.getContainer()?.isBound(CliToolManager)).toBeFalsy();
 });
+
+test('should log error if deferActivate fails', async () => {
+  const error = new Error('registration failed');
+  vi.mocked(CliToolManager.prototype.registerCliTool).mockRejectedValue(error);
+  const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+  await mincExtension.activate();
+
+  await vi.waitFor(() => expect(consoleErrorSpy).toHaveBeenCalledWith('error in deferActivate', error));
+});
