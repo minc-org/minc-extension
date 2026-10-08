@@ -28,7 +28,6 @@ import { FlatCompat } from '@eslint/eslintrc';
 import unicorn from 'eslint-plugin-unicorn';
 import noNull from 'eslint-plugin-no-null';
 import sonarjs from 'eslint-plugin-sonarjs';
-import redundantUndefined from 'eslint-plugin-redundant-undefined';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -66,7 +65,6 @@ export default [
       // non-compliant v10 plug-ins
       import: fixupPluginRules(importPlugin),
       'no-null': fixupPluginRules(noNull),
-      'redundant-undefined': fixupPluginRules(redundantUndefined),
       'simple-import-sort': fixupPluginRules(simpleImportSort),
     },
     settings: {
@@ -166,7 +164,6 @@ export default [
       'import/first': 'error',
       'import/newline-after-import': 'error',
       'import/no-extraneous-dependencies': 'error',
-      'redundant-undefined/redundant-undefined': 'error',
       'import/no-extraneous-dependencies': 'error',
 
       // new rule that has been added as a recommended one in eslint v10
