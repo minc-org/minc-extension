@@ -75,7 +75,7 @@
     "@types/node": "^22.20.5",
     "@typescript-eslint/eslint-plugin": "^8.71.1",
     "@typescript-eslint/parser": "^8.71.1",
-    "@vitest/coverage-v8": "^5.0.3",
+    "@vitest/coverage-v8": "^5.0.4",
     "autoprefixer": "^10.6.1",
     "commitlint": "^20.5.3",
     "concurrently": "^10.0.6",
@@ -95,7 +95,7 @@
     "typescript": "6.0.3",
     "typescript-eslint": "^8.71.1",
     "vite": "8.3.4",
-    "vitest": "^5.0.3",
+    "vitest": "^5.0.4",
     "xvfb-maybe": "^0.2.1"
   },
   "packageManager": "pnpm@12.9.1+sha512.06b055fff5cd20dc12781de173ced3310ce0951bf2ec620211a16045d5444d5c93a663210764ef29a653a610459ba0368f0e74f84d80c54723cf95aae7bc0d6d"
