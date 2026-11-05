@@ -2,6 +2,8 @@ allowBuilds:
   '@biomejs/biome': true
   esbuild: true
   unrs-resolver: true
+minimumReleaseAgeExclude:
+  - '@podman-desktop/tests-playwright@1.31.0-next.202611050910-d4de84c'
 overrides:
   minimatch@<3.1.4: ^3.1.4
   minimatch@>=9.0.0 <9.0.7: ^9.0.7

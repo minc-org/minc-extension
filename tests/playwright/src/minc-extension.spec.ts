@@ -119,7 +119,7 @@ test.describe
           const mincExtensionCard = await extensions.getInstalledExtension(extensionLabelNameMinc, extensionLabelMinc);
           await playExpect(mincExtensionCard.card).toBeVisible();
           await mincExtensionCard.card.scrollIntoViewIfNeeded();
-          await playExpect(mincExtensionCard.status).toHaveText(ExtensionState.Active);
+          await playExpect(mincExtensionCard.status).toHaveText(ExtensionState.Installed);
           await playExpect
             .poll(async () => await extensions.extensionIsInstalled(extensionLabelMinc), { timeout: 30_000 })
             .toBeTruthy();
@@ -131,7 +131,7 @@ test.describe
           await extensionCard.openExtensionDetails('Red Hat OpenShift Local');
           const details = new MincExtensionPage(page);
           await playExpect(details.heading).toBeVisible();
-          await playExpect(details.status).toHaveText(ExtensionState.Active);
+          await playExpect(details.status).toHaveText(ExtensionState.Installed);
           const errorTab = details.tabs.getByRole('button', { name: 'Error' });
           // we would like to propagate the error's stack trace into test failure message
           let stackTrace = '';
@@ -151,7 +151,7 @@ test.describe
             .poll(async () => await extensions.extensionIsInstalled(extensionLabelMinc), { timeout: 30_000 })
             .toBeTruthy();
           const extensionCard = await extensions.getInstalledExtension(extensionLabelNameMinc, extensionLabelMinc);
-          await playExpect(extensionCard.status).toHaveText(ExtensionState.Active);
+          await playExpect(extensionCard.status).toHaveText(ExtensionState.Installed);
           await extensionCard.disableExtension();
           await playExpect(extensionCard.status).toHaveText(ExtensionState.Disabled);
           const dashboard = await navigationBar.openDashboard();
@@ -168,7 +168,7 @@ test.describe
           const extensionCard = await extensions.getInstalledExtension(extensionLabelNameMinc, extensionLabelMinc);
           await playExpect(extensionCard.status).toHaveText(ExtensionState.Disabled);
           await extensionCard.enableExtension();
-          await playExpect(extensionCard.status).toHaveText(ExtensionState.Active);
+          await playExpect(extensionCard.status).toHaveText(ExtensionState.Installed);
           await navigationBar.openSettings();
           await playExpect(mincResourcesCard.card).toBeVisible();
         });
