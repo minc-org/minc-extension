@@ -76,7 +76,7 @@
     "@typescript-eslint/eslint-plugin": "^8.72.1",
     "@typescript-eslint/parser": "^8.72.1",
     "@vitest/coverage-v8": "^5.0.5",
-    "autoprefixer": "^10.6.1",
+    "autoprefixer": "^10.6.2",
     "commitlint": "^21.2.3",
     "concurrently": "^10.0.6",
     "cross-env": "10.1.0",
