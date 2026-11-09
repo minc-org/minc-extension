@@ -222,8 +222,8 @@ importers:
         specifier: ^1.30.5
         version: 1.30.5
       '@podman-desktop/tests-playwright':
-        specifier: 1.31.0-next.202611050910-d4de84c
-        version: 1.31.0-next.202611050910-d4de84c
+        specifier: 1.31.0-next.202611051603-726dfc4
+        version: 1.31.0-next.202611051603-726dfc4
       '@types/node':
         specifier: ^22.20.5
         version: 22.20.5
@@ -855,8 +855,8 @@ packages:
   '@podman-desktop/podman-extension-api@1.30.5':
     resolution: {integrity: sha512-dHAxFF3c4RTrlmnGSFKXvwAOl9wzNuh2KEf8RejWEbxc8SRxw3ZLdzReGIP9RIrQFLdLDrBLkuybuOKWQxfwFQ==}
 
-  '@podman-desktop/tests-playwright@1.31.0-next.202611050910-d4de84c':
-    resolution: {integrity: sha512-24iQRpfvhRCSgGbz03yLEYPrZv305smpi5OLYUkICLUmLxsAsjqgF3wU8RknTlbDONP39Yc4Q+cYX7w3o3KvHA==}
+  '@podman-desktop/tests-playwright@1.31.0-next.202611051603-726dfc4':
+    resolution: {integrity: sha512-ORb0MLLTWUsZGSjfWk8W0ts6sNYMSSe+WLBkhq8yQVRMkSpt0SdiG8hhDD4Xm09g9ZB6JcUgr17tQuHsxwD61A==}
 
   '@rolldown/binding-android-arm-eabi@1.2.16':
     resolution: {integrity: sha512-ia3DwAs0OsMGS7+IConptSiyk9pEXkOx/AbJ2n/lAGxH3QkWQus1t8d7gnAT38FCU2sQu8lUbeR6AiZFv4JxaA==}
@@ -3426,7 +3426,7 @@ snapshots:
     dependencies:
       '@podman-desktop/api': 1.30.5
 
-  '@podman-desktop/tests-playwright@1.31.0-next.202611050910-d4de84c': {}
+  '@podman-desktop/tests-playwright@1.31.0-next.202611051603-726dfc4': {}
 
   '@rolldown/binding-android-arm-eabi@1.2.16':
     optional: true
