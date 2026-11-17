@@ -142,7 +142,7 @@ jobs:
         if: matrix.os == 'ubuntu-24.04'
         working-directory: ./minc-extension
         run: |
-          podman build -f build/Containerfile -t local_minc_image ./
+          podman build -f Containerfile -t local_minc_image ./
           CONTAINER_ID=$(podman create localhost/local_minc_image --entrypoint "")
           podman export $CONTAINER_ID > /tmp/local_minc_image.tar
           mkdir -p tests/playwright/output/minc-tests-pd/plugins
