@@ -213,8 +213,8 @@ importers:
         specifier: ^1.65.1
         version: 1.65.1
       '@podman-desktop/api':
-        specifier: ^1.30.5
-        version: 1.30.5
+        specifier: ^1.30.7
+        version: 1.30.7
       '@podman-desktop/eslint-config':
         specifier: ^0.1.0
         version: 0.1.0(eslint@10.15.0(jiti@2.6.1)(supports-color@10.2.2))
@@ -849,6 +849,9 @@ packages:
 
   '@podman-desktop/api@1.30.5':
     resolution: {integrity: sha512-diE/1A2XRLjBzGnfMBRikxDeuNEEOyE/NlRODDoiBH85tlEs8+CspjEkmoaam7pzS82ej36iV1WhAd07ixU4Rw==}
+
+  '@podman-desktop/api@1.30.7':
+    resolution: {integrity: sha512-QoHZ+dTKc8xQwc/45GJs/FUzuXApby0KJGpihqt+br7GDHAqpwJp1sTjZrhUZ8v1pkWBrDdutKASEbRZLvUMqQ==}
 
   '@podman-desktop/eslint-config@0.1.0':
     resolution: {integrity: sha512-u3AwhtAKSk8R4wJQRYl5iYzGSjUrZTwPtCN9tjaOiCyq5RsWW2UznBsRnZYtmnbO0sqOv0A6f9mcAh+/0AbGrw==}
@@ -3348,6 +3351,8 @@ snapshots:
       playwright: 1.65.1
 
   '@podman-desktop/api@1.30.5': {}
+
+  '@podman-desktop/api@1.30.7': {}
 
   '@podman-desktop/eslint-config@0.1.0(eslint@10.15.0(jiti@2.6.1)(supports-color@10.2.2))':
     dependencies:
